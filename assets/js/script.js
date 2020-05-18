@@ -1,4 +1,3 @@
-
 var moneyList = [
     0.01,
     1,
@@ -26,16 +25,16 @@ var moneyList = [
     500000,
     750000,
     1000000
-]
+];
 
 for (var i = 0; i < 13; i++){
-    var rowEl = $("<tr>").addClass("row");
+    var rowEl = $("<div>").addClass("row");
 
-    var divOne = $("<td>").text("$" + formatNumber(moneyList[i])).val(moneyList[i]);
-    var divTwo = $("<td>").text("$" + formatNumber(moneyList[i + 13])).val(moneyList[i+13]);
+    var divOne = $("<div>").text("$" + formatNumber(moneyList[i])).val(moneyList[i]).addClass("col");
+    var divTwo = $("<div>").text("$" + formatNumber(moneyList[i + 13])).val(moneyList[i+13]).addClass("col");
     
     rowEl.append(divOne, divTwo);
-    $("tbody").append(rowEl);
+    $("#money-table").append(rowEl);
 }
 
 function formatNumber(num) {
@@ -43,4 +42,3 @@ function formatNumber(num) {
         return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     return num;
 }
-
