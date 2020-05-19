@@ -4,9 +4,10 @@ body {
   padding: auto;
   background-color: black;
 }
+/*Text Style*/
 p {
   font-weight: bold;
-  color: whitesmoke;
+  color: rgba(250, 230, 115, 0.726);
 }
 li {
   padding-bottom: 0.5rem;
@@ -16,23 +17,35 @@ li {
 
 h2 {
   font-size: 40px;
-  color: white;
+  color: whitesmoke;
 }
+/*Style for Instructions*/
 .instructions-bg {
-  background-image: url(../images/bginstructions.jpg);
+  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+    url(../images/bginstructions.jpeg);
   -webkit-background-size: cover;
   -moz-background-size: cover;
   background-size: cover;
   -o-background-size: cover;
   background-position: center;
 }
-
+/*Cards Style*/
 .card {
   width: 60px;
   height: 50px;
   display: inline-block;
   margin-left: 1rem;
 }
+#gameCasesEl {
+  margin: 0 0.5rem;
+  background-image: url(../images/bgcases.jpeg);
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  -o-background-size: cover;
+  background-position: center;
+}
+/*Navigation Style*/
 nav {
   margin-bottom: 2rem;
   margin-top: 1rem;
@@ -51,34 +64,40 @@ nav {
   font-weight: bold;
   font-size: 20px;
 }
-#introA:hover,
-#gameTitle:hover,
-.signin-btn:hover {
-  font-weight: bolder;
+.signout-btn-game {
+  height: 2rem;
+  margin: 3rem 4rem;
+  background-color: transparent;
   color: black;
-  background-color: goldenrod;
+  font-weight: bold;
+  font-size: 20px;
 }
+#gameTitle:hover,
+#introA:hover,
+.signout-btn-game:hover {
+  opacity: 0.7;
+}
+
 #gameTitle {
   font-size: 70px;
   color: black;
   font-weight: bold;
   margin: 1.5rem 2rem;
 }
-
-#gameCasesEl {
-  margin: 0 0.5rem;
-  background-image: url(../images/bgcases.jpeg);
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  background-size: cover;
-  -o-background-size: cover;
-  background-position: center;
-}
+/*Style for Money Amount Table*/
 #moneyAmountTable {
   width: 200px;
 }
+/*Style for sign in and sign out btns on intro page*/
 .signin-btn {
   width: 100px;
   height: 50px;
-  background-color: silver;
+  background-color: rgba(255, 233, 110, 0.459);
+  color: black;
+  font-weight: bold;
+}
+.signin-btn:hover {
+  font-weight: bolder;
+  color: black;
+  background-color: goldenrod;
 }
