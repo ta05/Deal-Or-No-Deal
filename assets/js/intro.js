@@ -19,6 +19,7 @@ function onSignIn() {
     .signInWithPopup(provider)
     .then(function (result) {
       console.log("success");
+      console.log(result);
       var token = result.credential.accessToken;
       var user = result.user;
       if (user) {
@@ -32,5 +33,18 @@ function onSignIn() {
       var errorMessage = error.message;
       var email = error.email;
       var credential = error.credential;
+    });
+}
+function onSignOut() {
+  firebase
+    .auth()
+    .signOut()
+    .then(function () {
+      console.log("success");
+      // Sign-out successful.
+    })
+    .catch(function (error) {
+      // An error happened.
+      console.log("error");
     });
 }
