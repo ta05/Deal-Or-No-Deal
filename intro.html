@@ -3,6 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
     <title>Introduction: Deal or No Deal</title>
     <!--CSS Links-->
     <link
@@ -24,9 +26,73 @@
         </div>
       </nav>
     </header>
+    <div class="container">
+      <div class="row">
+        <div class="col l12 instructionsEl">
+          <div class="instructions-bg">
+            <section>
+              <h2>
+                Game Instructions
+              </h2>
+              <ul>
+                <p>
+                  Before Playing
+                </p>
+                <li>
+                  1. Please log in using your gmail account.
+                </li>
+                <li>
+                  2. Once you have logged in you will be directed to the game.
+                </li>
+                <p>Game Rules</p>
+                <li>
+                  1. Choose your initial case. This case will remain with you
+                  until the end of the game.
+                </li>
+                <li>
+                  2. After choosing your case you will choose and eliminate 6
+                  cases.
+                </li>
+                <li>
+                  3. The banker will then call you with an offer to buy your
+                  case, our game will display the expected value of the offer.
+                </li>
+                <li>
+                  4. You can then choose to accept his offer by clicking on the
+                  Deal button, or you can reject him by clicking on the No Deal
+                  button.
+                </li>
+                <li>
+                  5. If you select the Deal button, you accept his offer and the
+                  game ends. If you select No Deal, the game continues; 2-5 will
+                  loop throughout the game.
+                </li>
+                <li>
+                  6. Once there is 1 case left, you will have the option of
+                  choosing your case or the final case in the game.
+                </li>
+                <li>
+                  7. After making your decision the case you have chosen will
+                  open and display your winnings.
+                </li>
+              </ul>
+            </section>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col l12 center">
+          <button class="signin-btn" onclick="onSignIn();">Sign In</button>
+          <!-- <a href="#" onclick="signOut();">Sign out</a> -->
+        </div>
+      </div>
+    </div>
     <!--Javascript Links-->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <script src="./assets/js/script.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-firestore.js"></script>
+    <script src="./assets/js/intro.js"></script>
   </body>
 </html>
