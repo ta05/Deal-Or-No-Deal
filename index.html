@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Game: Deal or No Deal</title>
     <!--CSS Links-->
     <link
       rel="stylesheet"
@@ -16,7 +17,9 @@
     <header>
       <nav>
         <div class="nav-wrapper">
-          <a class="brand-logo center" id="gameTitle">Deal or No Deal</a>
+          <a href="index.html" class="brand-logo center" id="gameTitle"
+            >Deal or No Deal</a
+          >
           <ul>
             <li><a href="intro.html" id="introA">Introduction</a></li>
           </ul>
@@ -72,7 +75,10 @@
         </div>
       </div>
       <div class="row">
-        <div class="col s12 m4 l6 center teal" id="instructionsDisplayed">
+        <div
+          class="col s12 m4 l5 offset-l3 center teal"
+          id="instructionsDisplayed"
+        >
           Display Instructions for round
         </div>
       </div>
@@ -80,6 +86,9 @@
     <!--Javascript Links-->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-firestore.js"></script>
     <script src="./assets/js/script.js"></script>
   </body>
 </html>
