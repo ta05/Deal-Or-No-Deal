@@ -27,14 +27,44 @@ var moneyList = [
     1000000
 ];
 
-for (var i = 0; i < 13; i++){
-    var rowEl = $("<div>").addClass("row");
+var numCasesPicked = [6, 5, 4, 3, 2, 1, 1, 1, 1];
+var myCase;
 
-    var divOne = $("<div>").text("$" + formatNumber(moneyList[i])).val(moneyList[i]).addClass("col");
-    var divTwo = $("<div>").text("$" + formatNumber(moneyList[i + 13])).val(moneyList[i+13]).addClass("col");
+initialize();
+
+
+function initialize() {
+    createMoneyTable();
+    assignCaseAmounts();
+    pickMyCase();
+}
+
+function createMoneyTable() {
+    for (var i = 0; i < 13; i++) {
+        var rowEl = $("<div>").addClass("row");
+
+        var divOne = $("<div>").text("$" + formatNumber(moneyList[i])).val(moneyList[i]).addClass("col");
+        var divTwo = $("<div>").text("$" + formatNumber(moneyList[i + 13])).val(moneyList[i + 13]).addClass("col");
     
-    rowEl.append(divOne, divTwo);
-    $("#money-table").append(rowEl);
+        rowEl.append(divOne, divTwo);
+        $("#money-table").append(rowEl);
+    }
+}
+
+function assignCaseAmounts() {
+    var copyMoneyList = moneyList.slice();
+    for (var i = 0; i < moneyList.length; i++){
+        var value = copyMoneyList.splice(Math.floor(Math.random() * copyMoneyList.length), 1);
+        $("#case-" + (i + 1)).attr("value", value);
+    }
+}
+
+function pickMyCase() {
+    $(".case").on("click", function () {
+        myCase = $(this).clone();
+        $(this).remove();
+        $("#bankerInfo").append(myCase);
+    })
 }
 
 function formatNumber(num) {
