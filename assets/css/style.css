@@ -4,6 +4,29 @@ body {
   padding: auto;
   background-color: black;
 }
+p {
+  font-weight: bold;
+  color: whitesmoke;
+}
+li {
+  padding-bottom: 0.5rem;
+  color: white;
+  font-size: 16px;
+}
+
+h2 {
+  font-size: 40px;
+  color: white;
+}
+.instructions-bg {
+  background-image: url(../images/bginstructions.jpg);
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  -o-background-size: cover;
+  background-position: center;
+}
+
 .card {
   width: 60px;
   height: 50px;
@@ -13,9 +36,9 @@ body {
 nav {
   margin-bottom: 2rem;
   margin-top: 1rem;
-  background-color: rgb(168, 128, 27);
+  background-color: transparent;
   height: 8rem;
-  background-image: url(../images/bgnav.jfif);
+  background-image: url(../images/bgnav.jpeg);
   -webkit-background-size: cover;
   -moz-background-size: cover;
   background-size: cover;
@@ -29,13 +52,14 @@ nav {
   font-size: 20px;
 }
 #introA:hover,
-#gameTitle:hover {
+#gameTitle:hover,
+.signin-btn:hover {
   font-weight: bolder;
   color: black;
   background-color: goldenrod;
 }
 #gameTitle {
-  font-size: 60px;
+  font-size: 70px;
   color: black;
   font-weight: bold;
   margin: 1.5rem 2rem;
@@ -43,7 +67,18 @@ nav {
 
 #gameCasesEl {
   margin: 0 0.5rem;
+  background-image: url(../images/bgcases.jpeg);
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  -o-background-size: cover;
+  background-position: center;
 }
 #moneyAmountTable {
   width: 200px;
+}
+.signin-btn {
+  width: 100px;
+  height: 50px;
+  background-color: silver;
 }
