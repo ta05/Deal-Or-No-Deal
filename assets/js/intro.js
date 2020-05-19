@@ -18,23 +18,19 @@ function onSignIn() {
     .auth()
     .signInWithPopup(provider)
     .then(function (result) {
+      console.log("success");
       var token = result.credential.accessToken;
       var user = result.user;
+      if (user) {
+        window.location = "index.html";
+      }
     })
     .catch(function (error) {
+      console.log(error);
+      console.log("fail");
       var errorCode = error.code;
       var errorMessage = error.message;
       var email = error.email;
       var credential = error.credential;
     });
 }
-
-firebase
-  .auth()
-  .signOut()
-  .then(function () {
-    // Sign-out successful.
-  })
-  .catch(function (error) {
-    // An error happened.
-  });
