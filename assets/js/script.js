@@ -27,7 +27,8 @@ var moneyList = [
     1000000
 ];
 
-var round = [6, 5, 4, 3, 2, 1, 1, 1, 1];
+var numCasesPicked = [6, 5, 4, 3, 2, 1, 1, 1, 1];
+var myCase;
 
 initialize();
 
@@ -35,6 +36,7 @@ initialize();
 function initialize() {
     createMoneyTable();
     assignCaseAmounts();
+    pickMyCase();
 }
 
 function createMoneyTable() {
@@ -55,6 +57,14 @@ function assignCaseAmounts() {
         var value = copyMoneyList.splice(Math.floor(Math.random() * copyMoneyList.length), 1);
         $("#case-" + (i + 1)).attr("value", value);
     }
+}
+
+function pickMyCase() {
+    $(".case").on("click", function () {
+        myCase = $(this).clone();
+        $(this).remove();
+        $("#bankerInfo").append(myCase);
+    })
 }
 
 function formatNumber(num) {
