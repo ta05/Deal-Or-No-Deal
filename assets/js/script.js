@@ -1,34 +1,8 @@
-var moneyList = [
-    0.01,
-    1,
-    5,
-    10,
-    25,
-    50,
-    75,
-    100,
-    200,
-    300,
-    400,
-    500,
-    750,
-    1000,
-    5000,
-    10000,
-    25000,
-    50000,
-    75000,
-    100000,
-    200000,
-    300000,
-    400000,
-    500000,
-    750000,
-    1000000
-];
-
-var numCasesPicked = [6, 5, 4, 3, 2, 1, 1, 1, 1];
-var myCase;
+var moneyList = [0.01,1,5,10,25,50,75,100,200,300,400,500,750,1000,5000,10000,25000,50000,75000,100000,200000,300000,400000,500000,750000, 1000000];
+var casesOpened;
+var totalMoneyRemaining;
+var roundNum;
+var numCasesPerRound = [6, 5, 4, 3, 2, 1, 1, 1, 1];
 
 initialize();
 
@@ -36,7 +10,6 @@ initialize();
 function initialize() {
     createMoneyTable();
     assignCaseAmounts();
-    pickMyCase();
 }
 
 function createMoneyTable() {
@@ -52,19 +25,26 @@ function createMoneyTable() {
 }
 
 function assignCaseAmounts() {
-    var copyMoneyList = moneyList.slice();
-    for (var i = 0; i < moneyList.length; i++){
-        var value = copyMoneyList.splice(Math.floor(Math.random() * copyMoneyList.length), 1);
-        $("#case-" + (i + 1)).attr("value", value);
+    var values = moneyList.slice();
+    for (var i = 26; i >= 1; i--){
+        var randNum = Math.floor(Math.random() * values.length);
+        var caseValue = values[randNum];
+
+        $("#case-" + (i)).attr("value", caseValue);
+
+        values.splice(values.indexOf(caseValue), 1);
     }
 }
 
-function pickMyCase() {
-    $(".case").on("click", function () {
-        myCase = $(this).clone();
-        $(this).remove();
-        $("#bankerInfo").append(myCase);
-    })
+function pickMyCase(el) {
+    $("#your-case").addClass("chosen-case").text($(el).text()).val($(el).val());
+    $(el).removeClass("not-clicked").addClass("players-case");
+}
+
+function selectCase(el) {
+    casesOpened--;
+    remainingMoney -= parseFloat($(el).val());
+    $(el).removeClass("not-clicked").addClass("selected-case");
 }
 
 function formatNumber(num) {
