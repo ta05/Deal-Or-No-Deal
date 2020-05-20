@@ -1,6 +1,7 @@
 var moneyList = [0.01,1,5,10,25,50,75,100,200,300,400,500,750,1000,5000,10000,25000,50000,75000,100000,200000,300000,400000,500000,750000, 1000000];
 var casesOpened;
-var totalMoneyRemaining;
+var totalCases;
+var remainingMoney;
 var roundNum;
 var numCasesPerRound = [6, 5, 4, 3, 2, 1, 1, 1, 1];
 
@@ -25,6 +26,10 @@ function createMoneyTable() {
 }
 
 function assignCaseAmounts() {
+    casesOpened = 0;
+    totalCases = moneyList.length;
+    remainingMoney = calcTotalMoneyAmount();
+
     var values = moneyList.slice();
     for (var i = 26; i >= 1; i--){
         var randNum = Math.floor(Math.random() * values.length);
@@ -42,9 +47,22 @@ function pickMyCase(el) {
 }
 
 function selectCase(el) {
-    casesOpened--;
+    casesOpened++;
     remainingMoney -= parseFloat($(el).val());
     $(el).removeClass("not-clicked").addClass("selected-case");
+}
+
+
+
+function calcExpectedValue() {
+    return remainingMoney / (totalCases - casesOpened);
+}
+
+function calcTotalMoneyAmount() {
+    var amount = 0;
+    for (var i = 0; i < moneyList.length; i++)
+        amount += moneyList[i];
+    return amount;
 }
 
 function formatNumber(num) {
