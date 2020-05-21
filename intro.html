@@ -11,6 +11,12 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
     />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+      integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+      crossorigin="anonymous"
+    />
     <link rel="stylesheet" href="./assets/css/style.css" />
   </head>
   <body>
@@ -85,7 +91,13 @@
       </div>
       <div class="row">
         <div class="col l12 center">
+          <button id="playBtn">
+            <i class="fas fa-play-circle" id="icon"></i>
+          </button>
           <button class="signin-btn" onclick="onSignIn();">Sign In</button>
+          <button id="pauseBtn">
+            <i class="fas fa-pause-circle" id="icon"></i>
+          </button>
         </div>
       </div>
     </div>
