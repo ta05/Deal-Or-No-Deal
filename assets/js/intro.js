@@ -1,3 +1,4 @@
+//Google Sign in API
 var firebaseConfig = {
   apiKey: "AIzaSyDI_E1xYO1zcCP4NiTGSEyAdHpgFG3i-bM",
   authDomain: "project-1-1589847417885.firebaseapp.com",
@@ -19,7 +20,6 @@ function onSignIn() {
     .signInWithPopup(provider)
     .then(function (result) {
       console.log("success");
-      console.log(result);
       var token = result.credential.accessToken;
       var user = result.user;
       if (user) {
@@ -27,7 +27,6 @@ function onSignIn() {
       }
     })
     .catch(function (error) {
-      console.log(error);
       console.log("fail");
       var errorCode = error.code;
       var errorMessage = error.message;
@@ -41,10 +40,36 @@ function onSignOut() {
     .signOut()
     .then(function () {
       console.log("success");
-      // Sign-out successful.
+      window.location = "intro.html";
     })
     .catch(function (error) {
       // An error happened.
       console.log("error");
     });
 }
+//Music API
+var settings = {
+  async: true,
+  crossDomain: true,
+  url: "https://deezerdevs-deezer.p.rapidapi.com/search?q=Daft%20Punk",
+  method: "GET",
+  headers: {
+    "x-rapidapi-host": "deezerdevs-deezer.p.rapidapi.com",
+    "x-rapidapi-key": "ef5bea5c6amsh497e430e661a57bp15627ejsn17abd9160d1e",
+  },
+};
+//must create an array of preview sounds
+$.ajax(settings).then(function (response) {
+  var music = response.data[3].preview;
+  console.log(music);
+  // for (var i = 0; i < music.length; i++) {
+  //   if ((music.data[i] = true))
+  var sound = new Howl({
+    autoplay: true,
+    loop: true,
+    src: music,
+  });
+
+  sound.play(window.onload);
+  // }
+});
