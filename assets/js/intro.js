@@ -104,7 +104,6 @@ function onSignOut() {
 
 //WORKING CODE
 var sound1 = new Howl({
-  autoplay: true,
   src:
     "https://cdns-preview-e.dzcdn.net/stream/c-e77d23e0c8ed7567a507a6d1b6a9ca1b-7.mp3",
   onend: function () {
@@ -124,4 +123,10 @@ var sound1 = new Howl({
       },
     });
   },
+});
+$("#playBtn").on("click", function () {
+  sound1.play();
+});
+$("#pauseBtn").on("click", function () {
+  sound1.pause();
 });
