@@ -3,14 +3,30 @@ var casesOpened;
 var totalCases;
 var remainingMoney;
 var roundNum;
-var numCasesPerRound = [6, 5, 4, 3, 2, 1, 1, 1, 1];
+var numCasesOpenedPerRound = [6, 5, 4, 3, 2, 1, 1, 1, 1];
+var gameState;
+var hasPlayerSelectedCase;
 
 initialize();
 
+switch (gameState) {
+    case 0:
+        $(".case").click(function () {
+            if (!hasPlayerSelectedCase) {
+                var $selectedCase = $(this);
+                pickMyCase($selectedCase);
+                hasPlayerSelectedCase = true;
+            }
+        });
+        gameState = 1;
+        break;
+};
 
 function initialize() {
     createMoneyTable();
     assignCaseAmounts();
+    gameState = 0;
+    hasPlayerSelectedCase = false;
 }
 
 function createMoneyTable() {
@@ -51,8 +67,6 @@ function selectCase(el) {
     remainingMoney -= parseFloat($(el).val());
     $(el).removeClass("not-clicked").addClass("selected-case");
 }
-
-
 
 function calcExpectedValue() {
     return remainingMoney / (totalCases - casesOpened);
