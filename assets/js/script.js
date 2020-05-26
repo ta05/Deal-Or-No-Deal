@@ -16,42 +16,27 @@ var numCasesOpenedPerRound = {
     8: 1,
     9: 1
 };
-var gameState;
 var hasPlayerSelectedCase;
 
 initialize();
 
-function gameFlow() {
-    switch (gameState) {
-        case 0:
-            while (!hasPlayerSelectedCase) {
-                $(".case").click(function () {
-                    var $selectedCase = $(this);
-                    pickMyCase($selectedCase);
-                    hasPlayerSelectedCase = true;
-                });
-            }
-            gameState = 1;
-            gameFlow();
-            break;
-        case 1:
-            while (casesOpenedThisRound < numCasesOpenedPerRound[round]) {
-                $(".case").click(".not-clicked", function () {
-                    var $selectedCase = $(this);
-                    selectCase($selectedCase);
-                });
-            }
-            gameState = 2;
-            
-    };
-}
 
 function initialize() {
     createMoneyTable();
     assignCaseAmounts();
     moneyValuesRemaining = moneyList.slice();
-    gameState = 0;
     hasPlayerSelectedCase = false;
+}
+
+function gameFlow() {
+    $(".case").click(function () {
+        if (!hasPlayerSelectedCase) {
+            var $selectedCase = $(this);
+            pickMyCase($selectedCase);
+            hasPlayerSelectedCase = true;
+            gameFlow();
+        }
+    });
 }
 
 function createMoneyTable() {
@@ -96,6 +81,10 @@ function selectCase(el) {
     $(el).removeClass("not-clicked").addClass("selected-case");
 }
 
+function bankersOffer() {
+    var offer = Math.round((0.75 * calcExpectedValue()) / 1000) * 1000;
+}
+
 function calcExpectedValue() {
     return remainingMoney / (totalCases - totalCasesOpened);
 }
@@ -108,7 +97,7 @@ function calcEX2() {
 }
 
 function calcStandardDeviation() {
-    return Math.pow(calcExpectedValue(), 2) - calcEX2();
+    return Math.sqrt(Math.pow(calcExpectedValue(), 2) - calcEX2());
 }
 
 function calcTotalMoneyAmount() {

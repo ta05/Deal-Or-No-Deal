@@ -54,7 +54,12 @@ h2 {
 .chosen-case {
   display: block;
 }
+
 .players-case {
+  visibility: hidden;
+}
+
+.selected-case {
   visibility: hidden;
 }
 
