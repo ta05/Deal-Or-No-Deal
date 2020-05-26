@@ -1,4 +1,4 @@
-//Google Sign in API
+//Google SignIn API
 var firebaseConfig = {
   apiKey: "AIzaSyDI_E1xYO1zcCP4NiTGSEyAdHpgFG3i-bM",
   authDomain: "project-1-1589847417885.firebaseapp.com",
@@ -47,86 +47,53 @@ function onSignOut() {
       console.log("error");
     });
 }
-//Music API
-
-// var settings = {
-//   async: true,
-//   crossDomain: true,
-//   url: "https://deezerdevs-deezer.p.rapidapi.com/search?q=daft%20punk",
-//   method: "GET",
-//   headers: {
-//     "x-rapidapi-host": "deezerdevs-deezer.p.rapidapi.com",
-//     "x-rapidapi-key": "ef5bea5c6amsh497e430e661a57bp15627ejsn17abd9160d1e",
-//   },
-// };
-// var playlist = [];
-// $.ajax(settings).done(function (response) {
-//   console.log(response);
-//   for (i = 0; i < response.data.length; i++)
-//     playlist.push(response.data[i].preview);
-//   console.log(playlist);
-//   playPlaylist(createPlaylist());
-// });
-
-// function createPlaylist() {
-//   var sound = [];
-//   for (var i = 0; i < playlist.length; i++) {
-//     sound.push(
-//       new Howl({
-//         autoplay: true,
-//         src: playlist[i],
-//         pCount: i,
-//         onend: function () {
-//           if (pCount === sound.length - 1) sound[0].play();
-//           else sound[pCount + 1].play();
-//         },
-//       })
-//     );
-//   }
-//   return sound;
-// }
-// function playPlaylist(sound) {
-//   sound[0].play();
-// }
-
-//CREATE PLAYLIST FUNCTION
-// function createPlaylist() {
-//   var sound = [];
-//   for (var i = 0; i < playlist.length; i++) {
-//     sound.push(
-//       new Howl({
-//         autoplay: true,
-//         src: playlist[i],
-//       })
-//     );
-//   }
-// }
-
-//WORKING CODE
-var sound1 = new Howl({
-  src:
-    "https://cdns-preview-e.dzcdn.net/stream/c-e77d23e0c8ed7567a507a6d1b6a9ca1b-7.mp3",
-  onend: function () {
-    var sound2 = new Howl({
-      autoplay: true,
-      src:
-        "https://cdns-preview-b.dzcdn.net/stream/c-ba4c8bea8d5111bd444dc55ac9b21ef1-6.mp3",
-      onend: function () {
-        var sound3 = new Howl({
-          autoplay: true,
-          src:
-            "https://cdns-preview-d.dzcdn.net/stream/c-deda7fa9316d9e9e880d2c6207e92260-5.mp3",
-          onend: function () {
-            sound1.play();
-          },
-        });
-      },
-    });
+//Music API(RapidAPI-Deezer)
+var settings = {
+  async: true,
+  crossDomain: true,
+  url: "https://deezerdevs-deezer.p.rapidapi.com/search?q=daft%20punk",
+  method: "GET",
+  headers: {
+    "x-rapidapi-host": "deezerdevs-deezer.p.rapidapi.com",
+    "x-rapidapi-key": "ef5bea5c6amsh497e430e661a57bp15627ejsn17abd9160d1e",
   },
+};
+//Music Playlist w/ title
+var playlist = [];
+var playlistTitles = [];
+$.ajax(settings).done(function (response) {
+  console.log(response);
+  for (i = 0; i < response.data.length; i++)
+    playlist.push(response.data[i].preview);
+  //Playlist titles
+  for (i = 0; i < response.data.length; i++)
+    playlistTitles.push(response.data[i].title);
+
+  playMusic(0, playlist);
 });
-$("#playBtn").on("click", function () {
-  sound1.play();
-});
-$("#pauseBtn").on("click", function () {
-  sound1.pause();
-});
+
+console.log(playlist);
+console.log(playlistTitles);
+//Function to play music (Howler Js)
+function playMusic(i, playlist) {
+  var sound = new Howl({
+    src: [playlist[i]],
+    onend: function () {
+      if (i + 1 == playlist.length) {
+        playMusic(0, playlist);
+      } else {
+        playMusic(i + 1, playlist);
+      }
+    },
+  });
+  sound.play();
+  // $("#playBtn").click(function () {
+  //   playMusic();
+  // });
+
+  // completely stops music
+  $("#pauseBtn").click(function playMusic(i, playlist) {
+    sound.pause();
+  });
+}
+playMusic(0, playlist);
