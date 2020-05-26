@@ -47,7 +47,7 @@ function onSignOut() {
       console.log("error");
     });
 }
-//Music API(RapidAPI-Deezer)
+//Music API(RapidAPI-Deezer) for Intro
 var settings = {
   async: true,
   crossDomain: true,
@@ -86,14 +86,48 @@ function playMusic(i, playlist) {
       }
     },
   });
+  //Play/Pause/Resume Btns
   sound.play();
-  // $("#playBtn").click(function () {
-  //   playMusic();
-  // });
-
-  // completely stops music
-  $("#pauseBtn").click(function playMusic(i, playlist) {
-    sound.pause();
+  $("#playBtn").on("click", function () {
+    return sound;
   });
+
+  $("#resumeBtn").on("click", function () {
+    sound.mute(false);
+  });
+  $("#pauseBtn").on("click", function () {
+    sound.mute(true);
+  });
+  $("#stopBtn").on("click", function () {
+    sound.stop();
+  });
+  sound.on("end", function () {
+    $("#playBtn").disabled = true;
+    $("#playBtn").css("display", "none");
+  });
+  sound.on("play", function () {
+    $("#playBtn").disabled = true;
+    $("#playBtn").css("display", "none");
+  });
+  sound.on("stop", function () {
+    $("#playBtn").css("display", "none");
+    $("#resumeBtn").css("display", "none");
+    $("#pauseBtn").css("display", "none");
+    $("#stopBtn").css("display", "none");
+  });
+
+  playMusic(0, playlist);
 }
-playMusic(0, playlist);
+
+// function skipForward() {
+//     const currentSeek = sound.pos();
+//     console.log(currentSeek);
+//     const forwardTo = currentSeek + 30;
+//     const duration = sound.duration();
+//     if (forwardTo >= duration) {
+//       return;
+//     }
+//     $("#skipBtn").on("click", function () {
+//       sound.seek(forwardTo);
+//       sound.play();
+//     });
