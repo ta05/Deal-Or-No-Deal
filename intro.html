@@ -32,6 +32,22 @@
           <button class="signout-btn-game right" onclick="onSignOut();">
             Sign Out
           </button>
+          <button class="play-btn right" id="playBtn">
+            <i class="fas fa-play-circle icon-play" id="icon"></i>
+          </button>
+          <button class="pause-btn right" id="pauseBtn">
+            <i class="fas fa-pause-circle icon-pause" id="icon"></i>
+          </button>
+          <button class="resume-btn right" id="resumeBtn">
+            <i class="fas fa-music icon-resume" id="icon"></i>
+          </button>
+          <button class="stop-btn right" id="stopBtn">
+            <i class="fas fa-stop icon-stop" id="icon"></i>
+          </button>
+          <!-- <button class="skip-btn right" id="skipBtn">
+            <i class="fas fa-skip icon-skip" id="icon"></i>
+          </button>
+          <div class="nowPlaying"></div> -->
         </div>
       </nav>
     </header>
@@ -48,10 +64,15 @@
                   Before Playing
                 </p>
                 <li>
-                  1. Please log in using your gmail account.
+                  1. Please log in using your gmail account, if you would like
+                  to store your highscore.If not you may continue as a guest. To
+                  listen to music you can click the page or the "play button",
+                  you will have the option to pause or resume the current track
+                  or stop the music entirely.
                 </li>
                 <li>
-                  2. Once you have logged in you will be directed to the game.
+                  2. Once you have logged in or continued as guest you will be
+                  redirected to the game.
                 </li>
                 <p>Game Rules</p>
                 <li>
@@ -91,14 +112,14 @@
       </div>
       <div class="row">
         <div class="col l12 center">
-          <button id="playBtn">
-            <i class="fas fa-play-circle" id="icon"></i>
-          </button>
           <button class="signin-btn" onclick="onSignIn();">Sign In</button>
-          <button id="pauseBtn">
-            <i class="fas fa-pause-circle" id="icon"></i>
+          <button
+            class="guest-btn"
+            onclick="window.location.href
+            ='index.html';"
+          >
+            Guest
           </button>
-          <div class="nowPlaying"></div>
         </div>
       </div>
     </div>
