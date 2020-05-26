@@ -10,6 +10,12 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
     />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+      integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+      crossorigin="anonymous"
+    />
     <link rel="stylesheet" href="./assets/css/style.css" />
   </head>
 
@@ -27,6 +33,19 @@
           <button class="signout-btn-game right" onclick="onSignOut();">
             Sign Out
           </button>
+          <button class="play-btn right" id="playBtn">
+            <i class="fas fa-play-circle icon-play" id="icon"></i>
+          </button>
+          <button class="pause-btn right" id="pauseBtn">
+            <i class="fas fa-pause-circle icon-pause" id="icon"></i>
+          </button>
+          <button class="resume-btn right" id="resumeBtn">
+            <i class="fas fa-music icon-resume" id="icon"></i>
+          </button>
+          <button class="stop-btn right" id="stopBtn">
+            <i class="fas fa-stop icon-stop" id="icon"></i>
+          </button>
+          <div class="nowPlaying"></div>
         </div>
       </nav>
     </header>
@@ -91,10 +110,10 @@
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.0/howler.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-firestore.js"></script>
-    <script src="./assets/js/intro.js"></script>
     <script src="./assets/js/script.js"></script>
   </body>
 </html>
