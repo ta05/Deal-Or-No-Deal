@@ -30,8 +30,9 @@ var remainingMoney;
 var round;
 var casesOpenedThisRound;
 var hasPlayerSelectedCase;
-var lastOffer;
+var offer;
 var counterOffer;
+var winnings;
 
 initialize();
 
@@ -40,6 +41,7 @@ function initialize() {
     createMoneyTable();
     assignVariables();
     assignCaseAmounts();
+    createDealButtons();
 
     selectPlayersCase();
 }
@@ -78,6 +80,13 @@ function assignCaseAmounts() {
     }
 }
 
+function createDealButtons() {
+    var dealEl = $("<button>").attr({ "id": "deal-btn", "data-offer": "no" }).text("DEAL");
+    var noDealEl = $("<button>").attr({ "id": "no-deal-btn", "data-offer": "no" }).text("NO DEAL");
+    
+    $("#bankerInfo").append(dealEl, noDealEl);
+}
+
 function displayMyCase(el) {
     $("#your-case").addClass("chosen-case").text($(el).text()).val($(el).val());
     $(el).removeClass("not-clicked").addClass("players-case");
@@ -88,7 +97,8 @@ function removeSelectedCase(el) {
     casesOpenedThisRound++;
     remainingMoney -= parseFloat($(el).val());
     moneyValuesRemaining.splice(moneyValuesRemaining.indexOf(parseFloat($(el).val())), 1);
-    console.log("Case Opened: $" + formatNumber(parseFloat($(el).val())));
+    console.log("Case Opened: " + $(el).text());
+    console.log("Value: $" + formatNumber(parseFloat($(el).val())));
     $(el).removeClass("not-clicked").addClass("selected-case");
 }
 
@@ -105,8 +115,10 @@ function selectPlayersCase() {
 }
 
 function openCase() {
+    console.log("Round " + round);
+    var thisRound = round;
     $(".case").click("not-clicked", function () {
-        if (casesOpenedThisRound < numCasesOpenedPerRound[round]) {
+        if (casesOpenedThisRound < numCasesOpenedPerRound[round] && thisRound  === round) {
             var $selectedCase = $(this);
             removeSelectedCase($selectedCase);
             console.log("Number of Cases Opened This Round: " + casesOpenedThisRound);
@@ -125,15 +137,42 @@ function bankersOffer() {
     var ex = calcExpectedValue();
     var pi = ((z * sd) + mean);
 
-    lastOffer = Math.round((0.01*pi * ex) / 1000) * 1000;
+    offer = Math.round((0.01*pi * ex) / 1000) * 1000;
 
     console.log("P-value: " + pvalue);
     console.log("z: " + z);
     console.log("Expected Value: " + ex);
     console.log("Pi: " + pi);
 
-    console.log("Banker's Offer: $" + formatNumber(lastOffer));
-    return lastOffer;
+    console.log("Banker's Offer: $" + formatNumber(offer));
+
+    offerDeal();
+}
+
+function offerDeal() {
+    $("#deal-btn").attr("data-offer", "yes");
+    $("#no-deal-btn").attr("data-offer", "yes");
+
+    $("#deal-btn").click(function () {
+        $("#deal-btn").attr("data-offer", "no");
+        $("#no-deal-btn").attr("data-offer", "no");
+
+        winnings = offer;
+    });
+
+    $("#no-deal-btn").click(function () {
+        $("#deal-btn").attr("data-offer", "no");
+        $("#no-deal-btn").attr("data-offer", "no");
+
+        newRound();
+        openCase();
+
+    });
+}
+
+function newRound() {
+    round++;
+    casesOpenedThisRound = 0;
 }
 
 function calcExpectedValue() {
