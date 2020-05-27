@@ -22,7 +22,7 @@ h2 {
 }
 /*Style for Instructions*/
 .instructions-bg {
-  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8)),
     url(../images/bginstructions.jpeg);
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -85,9 +85,31 @@ nav {
   font-weight: bold;
   font-size: 20px;
 }
+.play-btn,
+.pause-btn,
+.resume-btn,
+.stop-btn {
+  height: 2rem;
+  margin: 3rem 1rem;
+  background-color: transparent;
+  color: black;
+}
+.icon-resume,
+.icon-play,
+.icon-pause,
+.icon-stop {
+  margin: -40px 0;
+}
+#icon {
+  font-size: 18px;
+}
 #gameTitle:hover,
 #introA:hover,
-.signout-btn-game:hover {
+.signout-btn-game:hover,
+.play-btn:hover,
+.pause-btn:hover,
+.resume-btn:hover,
+.stop-btn:hover {
   opacity: 0.7;
 }
 
@@ -103,27 +125,17 @@ nav {
   width: 200px;
 }
 /*Style for sign in and sign out btns on intro page*/
-.signin-btn {
+.signin-btn,
+.guest-btn {
   width: 100px;
   height: 50px;
   background-color: rgba(255, 233, 110, 0.459);
   color: black;
   font-weight: bold;
 }
-.signin-btn:hover {
+.signin-btn:hover,
+.guest-btn:hover {
   font-weight: bolder;
   color: black;
   background-color: rgba(172, 172, 172, 0.842);
-}
-/*Style for play and pause btn for music*/
-#playBtn,
-#pauseBtn {
-  width: 50px;
-  height: 50px;
-  margin: 0 1rem;
-  background-color: rgba(255, 233, 110, 0.459);
-}
-
-#icon {
-  font-size: 18px;
 }
