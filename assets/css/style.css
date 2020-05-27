@@ -107,6 +107,16 @@ nav {
 #moneyAmountTable {
   width: 200px;
 }
+
+/*Style for Deal, No Deal Buttons*/
+[data-offer="no"] {
+  pointer-events: none;
+}
+
+[data-offer="yes"] {
+  pointer-events: auto;
+}
+
 /*Style for sign in and sign out btns on intro page*/
 .signin-btn {
   width: 100px;
