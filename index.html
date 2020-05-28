@@ -23,29 +23,32 @@
     <header>
       <nav>
         <div class="nav-wrapper">
+          <button class="introBtn left" id="introBtn">
+            <a href="intro.html" class="introTxt">Introduction</a>
+          </button>
           <a href="index.html" class="brand-logo center" id="gameTitle"
             >Deal or No Deal</a
           >
-
-          <ul>
-            <li><a href="intro.html" id="introA">Introduction</a></li>
-          </ul>
-          <button class="signout-btn-game right" onclick="onSignOut();">
+          <button class="signout-btn-game left" onclick="onSignOut();">
             Sign Out
           </button>
-          <button class="play-btn right" id="playBtn">
-            <i class="fas fa-play-circle icon-play" id="icon"></i>
-          </button>
-          <button class="pause-btn right" id="pauseBtn">
-            <i class="fas fa-pause-circle icon-pause" id="icon"></i>
-          </button>
-          <button class="resume-btn right" id="resumeBtn">
-            <i class="fas fa-music icon-resume" id="icon"></i>
-          </button>
-          <button class="stop-btn right" id="stopBtn">
-            <i class="fas fa-stop icon-stop" id="icon"></i>
-          </button>
-          <div class="nowPlaying"></div>
+          <div class="col l12 center">
+            <button
+              id="add-music"
+              type="submit"
+              class="fas fa-search right"
+            ></button>
+            <input class="music-input right" type="text" id="music-input" />
+            <button class="stop-btn right" id="stopBtn">
+              <i class="fas fa-stop icon-stop" id="icon"></i>
+            </button>
+            <button class="resume-btn right" id="resumeBtn">
+              <i class="fas fa-music icon-resume" id="icon"></i>
+            </button>
+            <button class="pause-btn right" id="pauseBtn">
+              <i class="fas fa-pause-circle icon-pause" id="icon"></i>
+            </button>
+          </div>
         </div>
       </nav>
     </header>
