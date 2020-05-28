@@ -55,7 +55,7 @@ nav {
   font-weight: bold;
   font-size: 20px;
 }
-.play-btn,
+
 .pause-btn,
 .resume-btn,
 .stop-btn {
@@ -65,7 +65,6 @@ nav {
   color: black;
 }
 .icon-resume,
-.icon-play,
 .icon-pause,
 .icon-stop {
   margin: -40px 0;
@@ -92,7 +91,6 @@ nav {
 #introBtn:hover,
 #add-music:hover,
 .signout-btn-game:hover,
-.play-btn:hover,
 .pause-btn:hover,
 .resume-btn:hover,
 .stop-btn:hover {
@@ -116,7 +114,7 @@ nav {
   background-position: center;
   padding: 0 1rem;
 }
-/*Cards Style*/
+/*Cards(cases) Style*/
 .card {
   width: 60px;
   height: 50px;
