@@ -67,6 +67,7 @@ h2 {
 .chosen-case {
   display: block;
 }
+
 .players-case {
   visibility: hidden;
 }
@@ -166,7 +167,19 @@ nav {
   background-size: cover;
   -o-background-size: cover;
   background-position: center;
-  padding: 1rem 1rem;
+  padding: 0 1rem;
+}
+/*Cards(cases) Style*/
+
+#gameCasesEl {
+  margin: 0 0.5rem;
+  background-image: url(../images/bgcases.jpeg);
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  -o-background-size: cover;
+  background-position: center;
+
 }
 
 /*Style for Money Amount Table*/
@@ -174,7 +187,8 @@ nav {
   width: 200px;
 }
 
-[data-inplay="no"] {
+
+[data-inplay="no"]{
   text-decoration: line-through;
 }
 
@@ -202,7 +216,15 @@ nav {
   color: black;
   background-color: rgba(172, 172, 172, 0.842);
 }
+
 /*Style for banker info/your case column*/
 .bankerInfo {
   margin-bottom: 4rem;
+=======
+
+/*Style for Stats Table */
+#stats-table-values {
+  display: none;
+  background-color: white;
+
 }
