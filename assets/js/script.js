@@ -30,10 +30,13 @@ var remainingMoney;
 var round;
 var casesOpenedThisRound;
 var hasPlayerSelectedCase;
+var hasSelectedFinalCase;
 var offer;
 var counterOffer;
 var winnings;
 var gameState;
+var myCase;
+var selectedCase;
 
 initialize();
 
@@ -67,7 +70,10 @@ function assignVariables() {
     round = 0;
     casesOpenedThisRound = 0;
     hasPlayerSelectedCase = false;
+    hasSelectedFinalCase = false;
     gameState = 0;
+    myCase = undefined;
+    selectedCase = undefined;
 }
 
 function assignCaseAmounts() {
@@ -108,10 +114,12 @@ function removeSelectedCase(el) {
 }
 
 function selectPlayersCase() {
+    displayInstructions();
     $(".case").click(function () {
         if (!hasPlayerSelectedCase) {
-            var $selectedCase = $(this);
-            displayMyCase($selectedCase);
+            myCase = $(this);
+            displayMyCase(myCase);
+            displayInfo();
             hasPlayerSelectedCase = true;
             gameState = 1;
             newRound();
@@ -121,13 +129,17 @@ function selectPlayersCase() {
 
 function openCase(thisRound) {
     console.log("Round " + round);
+    displayInstructions();
     $(".case").click("not-clicked", function () {
         if (casesOpenedThisRound < numCasesOpenedPerRound[round] && thisRound === round) {
-            var $selectedCase = $(this);
-            removeSelectedCase($selectedCase);
+            selectedCase = $(this);
+            removeSelectedCase(selectedCase);
+            displayInfo();
             console.log("Number of Cases Opened This Round: " + casesOpenedThisRound);
-            if (casesOpenedThisRound === numCasesOpenedPerRound[round]) 
+            if (casesOpenedThisRound === numCasesOpenedPerRound[round])
                 bankersOffer();
+            else
+                displayInstructions();
         }
     });
 }
@@ -143,7 +155,7 @@ function bankersOffer() {
     var ex = calcExpectedValue();
     var pi = ((z * sd) + mean);
 
-    offer = Math.round((0.01*pi * ex) / 1000) * 1000;
+    offer = Math.round((0.01*pi * ex));
 
     console.log("P-value: " + pvalue);
     console.log("z: " + z);
@@ -160,6 +172,9 @@ function counterOffer(counter) {
 }
 
 function offerDeal(thisRound) {
+    displayInstructions();
+    displayInfo();
+
     $("#deal-btn").attr("data-offer", "yes");
     $("#no-deal-btn").attr("data-offer", "yes");
 
@@ -168,7 +183,9 @@ function offerDeal(thisRound) {
             $("#deal-btn").attr("data-offer", "no");
             $("#no-deal-btn").attr("data-offer", "no");
 
+            gameState = 11;
             winnings = offer;
+            displayInfo();
             console.log("Winnings: $" + formatNumber(winnings));
         }
     });
@@ -178,6 +195,7 @@ function offerDeal(thisRound) {
             $("#deal-btn").attr("data-offer", "no");
             $("#no-deal-btn").attr("data-offer", "no");
 
+            removeInfo();
             newRound();
         }
     });
@@ -190,13 +208,16 @@ function offerDeal(thisRound) {
 }
 
 function selectFinalCase(thisRound) {
+    displayInstructions();
     console.log("Select your Final Case to take Home");
     $(".case").click(function () {
-        if (thisRound === round) {
-            winnings = parseFloat($(this).val());
-            gameState = 11;
-            console.log("Case Opened: " + $(this).text());
-            console.log("Winnings: $" + formatNumber(winnings));
+        if (thisRound === round && !(hasSelectedFinalCase)) {
+            hasSelectedFinalCase = true;
+            selectedCase = $(this);
+            winnings = parseFloat(selectedCase.val());
+            displayInfo();
+            console.log("Case Opened: " + selectedCase.text());
+            console.log("Winnings: $" + formatNumber(selectedCase.val()));
         }
     });
 }
@@ -213,6 +234,53 @@ function newRound() {
         gameState = 10;
         selectFinalCase(round);
     }
+}
+
+function displayInstructions() {
+    var instructEl = $("#instructionsDisplayed");
+    switch (gameState) {
+        case 0:
+            instructEl.text("Select your case");
+            break;
+        case 1:
+            if (numCasesOpenedPerRound[round] - casesOpenedThisRound > 1)
+                instructEl.text("Open " + (numCasesOpenedPerRound[round] - casesOpenedThisRound) + " cases.");
+            else
+                instructEl.text("Open " + (numCasesOpenedPerRound[round] - casesOpenedThisRound) + " case.");
+            break;
+        case 2:
+            instructEl.text("DEAL or NO DEAL?");
+            break;
+        case 10:
+            instructEl.text("Select your Final Case to take Home");
+            break;
+    }
+}
+
+function displayInfo() {
+    var infoEl = $("#infoDisplayed");
+    console.log(gameState);
+    switch (gameState) {
+        case 0:
+            infoEl.text("You chose Case " + myCase.text());
+            break;
+        case 1:
+            infoEl.html("You opened Case " + selectedCase.text() + "<br>Value: $" + formatNumber(selectedCase.val()));
+            break;
+        case 2:
+            infoEl.text("Banker's Offer: $" + formatNumber(offer));
+            break;
+        case 10:
+            infoEl.html("Your Final Case is Case " + selectedCase.text() + "<br>Winnings: $" + formatNumber(selectedCase.val()));
+            break;
+        case 11:
+            infoEl.html("You made a DEAL with the Banker.<br>Winnings: $" + formatNumber(winnings));
+    }
+}
+
+function removeInfo() {
+    var infoEl = $("#infoDisplayed");
+    infoEl.html("");
 }
 
 function strikeOutTable(amount) {
@@ -247,7 +315,6 @@ function formatNumber(num) {
     return num;
 }
 
-
 function percentile_z(p) {
     var a0= 2.5066282,  a1=-18.6150006,  a2= 41.3911977,   a3=-25.4410605,
         b1=-8.4735109,  b2= 23.0833674,  b3=-21.0622410,   b4=  3.1308291,
@@ -263,4 +330,3 @@ function percentile_z(p) {
     }
     return z;
 }
-
