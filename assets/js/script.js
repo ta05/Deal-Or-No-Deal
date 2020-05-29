@@ -247,6 +247,7 @@ function formatNumber(num) {
     return num;
 }
 
+
 function percentile_z(p) {
     var a0= 2.5066282,  a1=-18.6150006,  a2= 41.3911977,   a3=-25.4410605,
         b1=-8.4735109,  b2= 23.0833674,  b3=-21.0622410,   b4=  3.1308291,
@@ -262,3 +263,4 @@ function percentile_z(p) {
     }
     return z;
 }
+

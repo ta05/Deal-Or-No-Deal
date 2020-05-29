@@ -9,6 +9,7 @@ p {
   font-weight: bold;
   color: rgba(250, 230, 115, 0.726);
 }
+
 li {
   padding-bottom: 0.5rem;
   color: white;
@@ -20,9 +21,13 @@ h2 {
   color: whitesmoke;
   margin-top: 0.5rem;
 }
+
+
+/*Style for NavBar*/
+
 /*Style for Instructions*/
 .instructions-bg {
-  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8)),
     url(../images/bginstructions.jpeg);
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -76,23 +81,65 @@ nav {
   -o-background-size: cover;
   background-position: center;
 }
-#introA {
-  margin: 2rem 3rem;
-  color: black;
+#introBtn {
+  height: 2rem;
+  margin: 5.5rem 0.5rem;
+  background-color: transparent;
   font-weight: bold;
+  color: black;
+  display: "none";
+}
+.introTxt {
   font-size: 20px;
+  color: black;
 }
 .signout-btn-game {
   height: 2rem;
-  margin: 3rem 4rem;
+  margin: 5.5rem 0.5rem;
   background-color: transparent;
   color: black;
   font-weight: bold;
   font-size: 20px;
 }
+
+.pause-btn,
+.resume-btn,
+.stop-btn {
+  height: 2rem;
+  margin: 5.5rem 0.5rem;
+  background-color: transparent;
+  color: black;
+}
+.icon-resume,
+.icon-pause,
+.icon-stop {
+  margin: -40px 0;
+}
+#icon {
+  font-size: 18px;
+}
+#add-music {
+  height: 2rem;
+  margin: 5.5rem 0.5rem;
+  background-color: transparent;
+  color: black;
+}
+#music-input {
+  height: 2rem;
+  margin: 5.5rem 0.5rem;
+  background-color: rgba(255, 248, 182, 0.712);
+  display: block;
+  color: black;
+  width: 8rem;
+}
+
 #gameTitle:hover,
-#introA:hover,
-.signout-btn-game:hover {
+#introBtn:hover,
+#add-music:hover,
+.signout-btn-game:hover,
+.pause-btn:hover,
+.resume-btn:hover,
+.stop-btn:hover {
   opacity: 0.7;
 }
 
@@ -100,8 +147,34 @@ nav {
   font-size: 70px;
   color: black;
   font-weight: bold;
-  margin: 1.5rem;
-  margin-left: auto;
+  margin: 1rem;
+}
+/*Style for Instructions*/
+.instructions-bg {
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8)),
+    url(../images/bginstructions.jpeg);
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  -o-background-size: cover;
+  background-position: center;
+  padding: 0 1rem;
+}
+/*Cards(cases) Style*/
+.card {
+  width: 60px;
+  height: 50px;
+  display: inline-block;
+  margin-left: 1rem;
+}
+#gameCasesEl {
+  margin: 0 0.5rem;
+  background-image: url(../images/bgcases.jpeg);
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  -o-background-size: cover;
+  background-position: center;
 }
 /*Style for Money Amount Table*/
 #moneyAmountTable {
@@ -122,14 +195,16 @@ nav {
 }
 
 /*Style for sign in and sign out btns on intro page*/
-.signin-btn {
+.signin-btn,
+.guest-btn {
   width: 100px;
   height: 50px;
   background-color: rgba(255, 233, 110, 0.459);
   color: black;
   font-weight: bold;
 }
-.signin-btn:hover {
+.signin-btn:hover,
+.guest-btn:hover {
   font-weight: bolder;
   color: black;
   background-color: rgba(172, 172, 172, 0.842);
