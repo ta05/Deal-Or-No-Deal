@@ -1,70 +1,466 @@
-//Music API for Index
-var settings = {
-  async: true,
-  crossDomain: true,
-  url: "https://deezerdevs-deezer.p.rapidapi.com/search?q=calvin%20harris",
-  method: "GET",
-  headers: {
-    "x-rapidapi-host": "deezerdevs-deezer.p.rapidapi.com",
-    "x-rapidapi-key": "ef5bea5c6amsh497e430e661a57bp15627ejsn17abd9160d1e",
-  },
+var moneyList = [
+  0.01,
+  1,
+  5,
+  10,
+  25,
+  50,
+  75,
+  100,
+  200,
+  300,
+  400,
+  500,
+  750,
+  1000,
+  5000,
+  10000,
+  25000,
+  50000,
+  75000,
+  100000,
+  200000,
+  300000,
+  400000,
+  500000,
+  750000,
+  1000000,
+];
+var numCasesOpenedPerRound = {
+  1: 6,
+  2: 5,
+  3: 4,
+  4: 3,
+  5: 2,
+  6: 1,
+  7: 1,
+  8: 1,
+  9: 1,
 };
-var playlist = [];
-var playlistTitles = [];
-$.ajax(settings).done(function (response) {
-  console.log(response);
-  for (i = 0; i < response.data.length; i++)
-    playlist.push(response.data[i].preview);
-  //Playlist titles
-  for (i = 0; i < response.data.length; i++)
-    playlistTitles.push(response.data[i].title);
 
-  playMusic(0, playlist);
+var bankersOfferMeanSD = {
+  1: [22.485, 8.385],
+  2: [33.685, 11.232],
+  3: [44.87, 8.74],
+  4: [52.46, 13.5],
+  5: [63.745, 14.002],
+  6: [72.75, 12.719],
+  7: [74.98, 17.622],
+  8: [80.92, 17.26],
+  9: [78.88, 15.321],
+};
+
+var moneyValuesRemaining;
+var totalCasesOpened;
+var totalCases;
+var remainingMoney;
+var round;
+var casesOpenedThisRound;
+var hasPlayerSelectedCase;
+var hasSelectedFinalCase;
+var offer;
+var counterOffer;
+var winnings;
+var gameState;
+var myCase;
+var selectedCase;
+
+initialize();
+
+function initialize() {
+  localStorage.removeItem("winnings");
+  createMoneyTable();
+  assignVariables();
+  assignCaseAmounts();
+  createDealButtons();
+  selectPlayersCase();
+}
+
+/* Game setup. Creates the Money Table, Assigns the Case Values, Resets Global Variables and Creates the DEAL and NO DEAL buttons */
+
+function createMoneyTable() {
+  for (var i = 0; i < 13; i++) {
+    var rowEl = $("<div>").addClass("row");
+
+    var divOne = $("<div>")
+      .text("$" + formatNumber(moneyList[i]))
+      .addClass("col")
+      .attr({ "data-inplay": "yes", value: moneyList[i] });
+    var divTwo = $("<div>")
+      .text("$" + formatNumber(moneyList[i + 13]))
+      .addClass("col")
+      .attr({ "data-inplay": "yes", value: moneyList[i + 13] });
+
+    rowEl.append(divOne, divTwo);
+    $("#money-table").append(rowEl);
+  }
+}
+
+function assignVariables() {
+  moneyValuesRemaining = moneyList.slice();
+  totalCasesOpened = 0;
+  totalCases = moneyList.length;
+  remainingMoney = calcTotalMoneyAmount();
+  round = 0;
+  casesOpenedThisRound = 0;
+  hasPlayerSelectedCase = false;
+  hasSelectedFinalCase = false;
+  gameState = 0;
+  myCase = undefined;
+  selectedCase = undefined;
+}
+
+function assignCaseAmounts() {
+  var values = moneyList.slice();
+  for (var i = 26; i >= 1; i--) {
+    var randNum = Math.floor(Math.random() * values.length);
+    var caseValue = values[randNum];
+
+    $("#case-" + i).val(caseValue);
+
+    values.splice(values.indexOf(caseValue), 1);
+  }
+}
+
+function createDealButtons() {
+  var dealEl = $("<button>")
+    .attr({ id: "deal-btn", "data-offer": "no" })
+    .text("DEAL");
+  var noDealEl = $("<button>")
+    .attr({ id: "no-deal-btn", "data-offer": "no" })
+    .text("NO DEAL");
+  var counterInput = $("<input>")
+    .attr("id", "counter-offer")
+    .text("Enter counteroffer");
+  var counterEl = $("<button>")
+    .attr({ id: "counter-btn", "data-offer": "no" })
+    .text("COUNTER");
+  $("#bankerInfo").append(dealEl, noDealEl, counterInput, counterEl);
+}
+
+/* Code for the Actual Game */
+
+function selectPlayersCase() {
+  displayInstructions();
+  $(".case").click(function () {
+    if (!hasPlayerSelectedCase) {
+      myCase = $(this);
+      displayMyCase(myCase);
+      displayInfo();
+      hasPlayerSelectedCase = true;
+      gameState = 1;
+      newRound();
+    }
+  });
+}
+
+function displayMyCase(el) {
+  $("#your-case").addClass("chosen-case").text($(el).text()).val($(el).val());
+  $(el).removeClass("not-clicked").addClass("players-case");
+}
+
+function openCase(thisRound) {
+  console.log("Round " + round);
+  displayInstructions();
+  $(".case").click("not-clicked", function () {
+    if (
+      casesOpenedThisRound < numCasesOpenedPerRound[round] &&
+      thisRound === round
+    ) {
+      selectedCase = $(this);
+      removeSelectedCase(selectedCase);
+      displayInfo();
+      console.log("Number of Cases Opened This Round: " + casesOpenedThisRound);
+      if (casesOpenedThisRound === numCasesOpenedPerRound[round])
+        bankersOffer();
+      else displayInstructions();
+    }
+  });
+}
+
+function removeSelectedCase(el) {
+  totalCasesOpened++;
+  casesOpenedThisRound++;
+  var amount = parseFloat($(el).val());
+  remainingMoney -= amount;
+  moneyValuesRemaining.splice(moneyValuesRemaining.indexOf(amount), 1);
+  console.log("Case Opened: " + $(el).text());
+  console.log("Value: $" + formatNumber(amount));
+  $(el).removeClass("not-clicked").addClass("selected-case");
+  strikeOutTable(amount);
+  updateStatsTable();
+}
+
+function bankersOffer() {
+  gameState = 2;
+
+  var mean = bankersOfferMeanSD[round][0];
+  var sd = bankersOfferMeanSD[round][1];
+
+  var pvalue = Math.random() * 0.95 - 0.475;
+  var z = percentile_z(pvalue);
+  var ex = calcExpectedValue();
+  var pi = z * sd + mean;
+
+  offer = Math.round(0.01 * pi * ex);
+
+  console.log("P-value: " + pvalue);
+  console.log("z: " + z);
+  console.log("Expected Value: $" + formatNumber(Math.round(ex)));
+  console.log("Pi: " + pi);
+
+  console.log("Banker's Offer: $" + formatNumber(offer));
+
+  offerDeal(round);
+}
+
+function counterOffer(counter) {}
+
+function offerDeal(thisRound) {
+  displayInstructions();
+  displayInfo();
+
+  $("#deal-btn").attr("data-offer", "yes");
+  $("#no-deal-btn").attr("data-offer", "yes");
+
+  $("#deal-btn").click(function () {
+    if (thisRound === round) {
+      $("#deal-btn").attr("data-offer", "no");
+      $("#no-deal-btn").attr("data-offer", "no");
+
+      gameState = 11;
+      winnings = offer;
+      localStorage.setItem("winnings", winnings);
+      displayInfo();
+      console.log("Winnings: $" + formatNumber(winnings));
+    }
+  });
+
+  $("#no-deal-btn").click(function () {
+    if (thisRound === round) {
+      $("#deal-btn").attr("data-offer", "no");
+      $("#no-deal-btn").attr("data-offer", "no");
+
+      removeInfo();
+      newRound();
+    }
+  });
+
+  $("#counter-btn").click(function () {
+    if (thisRound === round) {
+    }
+  });
+}
+
+function selectFinalCase(thisRound) {
+  displayInstructions();
+  console.log("Select your Final Case to take Home");
+  $(".case").click(function () {
+    if (thisRound === round && !hasSelectedFinalCase) {
+      hasSelectedFinalCase = true;
+      selectedCase = $(this);
+      winnings = parseFloat(selectedCase.val());
+      localStorage.setItem("winnings", winnings);
+      displayInfo();
+      console.log("Case Opened: " + selectedCase.text());
+      console.log("Winnings: $" + formatNumber(selectedCase.val()));
+    }
+  });
+}
+
+function newRound() {
+  console.log("New Round Called");
+  round++;
+  casesOpenedThisRound = 0;
+  if (round <= 9) {
+    gameState = 1;
+    openCase(round);
+  } else {
+    gameState = 10;
+    selectFinalCase(round);
+  }
+}
+
+/* Event Listener for the More Stats Button */
+$("#stats-btn").click(function () {
+  if ($("#stats-table-values").css("display") === "none")
+    $("#stats-table-values").css("display", "block");
+  else $("#stats-table-values").css("display", "none");
 });
 
-console.log(playlist);
-console.log(playlistTitles);
-//Function to play music (Howler Js)
-function playMusic(i, playlist) {
-  var sound = new Howl({
-    src: [playlist[i]],
-    onend: function () {
-      if (i + 1 == playlist.length) {
-        playMusic(0, playlist);
-      } else {
-        playMusic(i + 1, playlist);
-      }
-    },
-  });
-  //Play/Pause/Resume Btns
-  sound.play();
-  $("#playBtn").on("click", function () {
-    return sound;
-  });
+/*Updates the Stats Table */
+function updateStatsTable() {
+  var ex = calcExpectedValue();
+  var ex2 = calcEX2();
+  $("#expected-value").text("Expected Value: $" + formatNumber(Math.round(ex)));
+  $("#standard-deviation").text(
+    "Standard Deviation: $" +
+      formatNumber(Math.round(calcStandardDeviation(ex, ex2)))
+  );
+  $("#median").text(
+    "Median: $" + formatNumber(calcMedian(moneyValuesRemaining))
+  );
+  $("#first-quartile").text(
+    "First Quartile: $" + formatNumber(calc25thPercentile(moneyValuesRemaining))
+  );
+  $("#third-quartile").text(
+    "Third Quartile: $" + formatNumber(calc75thPercentile(moneyValuesRemaining))
+  );
+}
 
-  $("#resumeBtn").on("click", function () {
-    sound.mute(false);
-  });
-  $("#pauseBtn").on("click", function () {
-    sound.mute(true);
-  });
-  $("#stopBtn").on("click", function () {
-    sound.stop();
-  });
-  sound.on("end", function () {
-    $("#playBtn").disabled = true;
-    $("#playBtn").css("display", "none");
-  });
-  sound.on("play", function () {
-    $("#playBtn").disabled = true;
-    $("#playBtn").css("display", "none");
-  });
-  sound.on("stop", function () {
-    $("#playBtn").css("display", "none");
-    $("#resumeBtn").css("display", "none");
-    $("#pauseBtn").css("display", "none");
-    $("#stopBtn").css("display", "none");
-  });
+/* Formatting Functions and Displaying Instructions and Info for the User */
 
-  playMusic(0, playlist);
+function displayInstructions() {
+  var instructEl = $("#instructionsDisplayed");
+  switch (gameState) {
+    case 0:
+      instructEl.text("Select your case");
+      break;
+    case 1:
+      if (numCasesOpenedPerRound[round] - casesOpenedThisRound > 1)
+        instructEl.text(
+          "Open " +
+            (numCasesOpenedPerRound[round] - casesOpenedThisRound) +
+            " cases."
+        );
+      else
+        instructEl.text(
+          "Open " +
+            (numCasesOpenedPerRound[round] - casesOpenedThisRound) +
+            " case."
+        );
+      break;
+    case 2:
+      instructEl.text("DEAL or NO DEAL?");
+      break;
+    case 10:
+      instructEl.text("Select your Final Case to take Home");
+      break;
+  }
+}
+
+function displayInfo() {
+  var infoEl = $("#infoDisplayed");
+  console.log(gameState);
+  switch (gameState) {
+    case 0:
+      infoEl.text("You chose Case " + myCase.text());
+      break;
+    case 1:
+      infoEl.html(
+        "You opened Case " +
+          selectedCase.text() +
+          "<br>Value: $" +
+          formatNumber(selectedCase.val())
+      );
+      break;
+    case 2:
+      infoEl.text("Banker's Offer: $" + formatNumber(offer));
+      break;
+    case 10:
+      infoEl.html(
+        "Your Final Case is Case " +
+          selectedCase.text() +
+          "<br>Winnings: $" +
+          formatNumber(selectedCase.val())
+      );
+      break;
+    case 11:
+      infoEl.html(
+        "You made a DEAL with the Banker.<br>Winnings: $" +
+          formatNumber(winnings)
+      );
+  }
+}
+
+function removeInfo() {
+  var infoEl = $("#infoDisplayed");
+  infoEl.html("");
+}
+
+function strikeOutTable(amount) {
+  $("div [value='" + amount + "']").attr("data-inplay", "no");
+}
+
+function formatNumber(num) {
+  if (num > 1) return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  return num;
+}
+
+/* Calculations used in various functions */
+
+function calcExpectedValue() {
+  return remainingMoney / (totalCases - totalCasesOpened);
+}
+
+function calcEX2() {
+  var x2 = 0;
+  for (var i = 0; i < moneyValuesRemaining.length; i++)
+    x2 += Math.pow(moneyValuesRemaining[i], 2);
+  var ex2 = x2 / moneyValuesRemaining.length;
+  return ex2;
+}
+
+function calcStandardDeviation(ex, ex2) {
+  return Math.sqrt(ex2 - Math.pow(ex, 2));
+}
+
+function calcMedian(list) {
+  var listLength = list.length;
+  if (listLength % 2 == 1) return list[Math.floor(listLength / 2)];
+  else return (list[listLength / 2] + list[listLength / 2 - 1]) / 2;
+}
+
+function calc25thPercentile(list) {
+  var listLength = list.length;
+  var index = Math.floor((listLength + 1) / 4) - 1;
+  var weight = ((listLength + 1) % 4) / 4;
+  return list[index] * (1 - weight) + list[index + 1] * weight;
+}
+
+function calc75thPercentile(list) {
+  var listLength = list.length;
+  var index = Math.floor(((listLength + 1) * 3) / 4) - 1;
+  var weight = (((listLength + 1) * 3) % 4) / 4;
+  return list[index] * (1 - weight) + list[index + 1] * weight;
+}
+
+function percentOfExpected(value) {
+  return Math.round((value / calcExpectedValue()) * 100);
+}
+
+function calcTotalMoneyAmount() {
+  var amount = 0;
+  for (var i = 0; i < moneyList.length; i++) amount += moneyList[i];
+  return amount;
+}
+
+function percentile_z(p) {
+  var a0 = 2.5066282,
+    a1 = -18.6150006,
+    a2 = 41.3911977,
+    a3 = -25.4410605,
+    b1 = -8.4735109,
+    b2 = 23.0833674,
+    b3 = -21.062241,
+    b4 = 3.1308291,
+    c0 = -2.7871893,
+    c1 = -2.2979648,
+    c2 = 4.8501413,
+    c3 = 2.3212128,
+    d1 = 3.5438892,
+    d2 = 1.6370678,
+    r,
+    z;
+
+  if (p > 0.42) {
+    r = Math.sqrt(-Math.log(0.5 - p));
+    z = (((c3 * r + c2) * r + c1) * r + c0) / ((d2 * r + d1) * r + 1);
+  } else {
+    r = p * p;
+    z =
+      (p * (((a3 * r + a2) * r + a1) * r + a0)) /
+      ((((b4 * r + b3) * r + b2) * r + b1) * r + 1);
+  }
+  return z;
 }
