@@ -181,6 +181,10 @@ nav {
   width: 200px;
 }
 
+[data-inplay="no"]{
+  text-decoration: line-through;
+}
+
 /*Style for Deal, No Deal Buttons*/
 [data-offer="no"] {
   pointer-events: none;
