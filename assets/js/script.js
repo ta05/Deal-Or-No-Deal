@@ -33,6 +33,7 @@ var hasPlayerSelectedCase;
 var offer;
 var counterOffer;
 var winnings;
+var gameState;
 
 initialize();
 
@@ -50,8 +51,8 @@ function createMoneyTable() {
     for (var i = 0; i < 13; i++) {
         var rowEl = $("<div>").addClass("row");
 
-        var divOne = $("<div>").text("$" + formatNumber(moneyList[i])).val(moneyList[i]).addClass("col");
-        var divTwo = $("<div>").text("$" + formatNumber(moneyList[i + 13])).val(moneyList[i + 13]).addClass("col");
+        var divOne = $("<div>").text("$" + formatNumber(moneyList[i])).addClass("col").attr({ "data-inplay": "yes", "value": moneyList[i] });
+        var divTwo = $("<div>").text("$" + formatNumber(moneyList[i + 13])).addClass("col").attr({ "data-inplay": "yes", "value": moneyList[i + 13] });
     
         rowEl.append(divOne, divTwo);
         $("#money-table").append(rowEl);
@@ -66,6 +67,7 @@ function assignVariables() {
     round = 0;
     casesOpenedThisRound = 0;
     hasPlayerSelectedCase = false;
+    gameState = 0;
 }
 
 function assignCaseAmounts() {
@@ -96,11 +98,13 @@ function displayMyCase(el) {
 function removeSelectedCase(el) {
     totalCasesOpened++;
     casesOpenedThisRound++;
-    remainingMoney -= parseFloat($(el).val());
-    moneyValuesRemaining.splice(moneyValuesRemaining.indexOf(parseFloat($(el).val())), 1);
+    var amount = parseFloat($(el).val())
+    remainingMoney -= amount;
+    moneyValuesRemaining.splice(moneyValuesRemaining.indexOf(amount), 1);
     console.log("Case Opened: " + $(el).text());
-    console.log("Value: $" + formatNumber(parseFloat($(el).val())));
+    console.log("Value: $" + formatNumber(amount));
     $(el).removeClass("not-clicked").addClass("selected-case");
+    strikeOutTable(amount);
 }
 
 function selectPlayersCase() {
@@ -109,6 +113,7 @@ function selectPlayersCase() {
             var $selectedCase = $(this);
             displayMyCase($selectedCase);
             hasPlayerSelectedCase = true;
+            gameState = 1;
             newRound();
         }
     });
@@ -121,13 +126,15 @@ function openCase(thisRound) {
             var $selectedCase = $(this);
             removeSelectedCase($selectedCase);
             console.log("Number of Cases Opened This Round: " + casesOpenedThisRound);
-            if (casesOpenedThisRound === numCasesOpenedPerRound[round])
+            if (casesOpenedThisRound === numCasesOpenedPerRound[round]) 
                 bankersOffer();
         }
     });
 }
 
 function bankersOffer() {
+    gameState = 2;
+
     var mean = bankersOfferMeanSD[round][0];
     var sd = bankersOfferMeanSD[round][1];
 
@@ -187,6 +194,7 @@ function selectFinalCase(thisRound) {
     $(".case").click(function () {
         if (thisRound === round) {
             winnings = parseFloat($(this).val());
+            gameState = 11;
             console.log("Case Opened: " + $(this).text());
             console.log("Winnings: $" + formatNumber(winnings));
         }
@@ -197,10 +205,18 @@ function newRound() {
     console.log("New Round Called");
     round++;
     casesOpenedThisRound = 0;
-    if (round <= 9)
+    if (round <= 9) {
+        gameState = 1;
         openCase(round);
-    else
+    }
+    else {
+        gameState = 10;
         selectFinalCase(round);
+    }
+}
+
+function strikeOutTable(amount) {
+    $("div [value='" + amount + "']").attr("data-inplay", "no");
 }
 
 function calcExpectedValue() {
