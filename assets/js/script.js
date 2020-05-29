@@ -81,10 +81,11 @@ function assignCaseAmounts() {
 }
 
 function createDealButtons() {
-    var dealEl = $("<button>").attr({ "id": "deal-btn", "data-offer": "no" }).text("DEAL");
+    var dealEl = $("<button>").attr({ "id": "deal-btn", "data-offer": "no"}).text("DEAL");
     var noDealEl = $("<button>").attr({ "id": "no-deal-btn", "data-offer": "no" }).text("NO DEAL");
-    
-    $("#bankerInfo").append(dealEl, noDealEl);
+    var counterInput = $("<input>").attr("id", "counter-offer").text("Enter counteroffer");
+    var counterEl = $("<button>").attr({ "id": "counter-btn", "data-offer": "no"}).text("COUNTER");
+    $("#bankerInfo").append(dealEl, noDealEl, counterInput, counterEl);
 }
 
 function displayMyCase(el) {
@@ -108,17 +109,15 @@ function selectPlayersCase() {
             var $selectedCase = $(this);
             displayMyCase($selectedCase);
             hasPlayerSelectedCase = true;
-            round++;
-            openCase();
+            newRound();
         }
     });
 }
 
-function openCase() {
+function openCase(thisRound) {
     console.log("Round " + round);
-    var thisRound = round;
     $(".case").click("not-clicked", function () {
-        if (casesOpenedThisRound < numCasesOpenedPerRound[round] && thisRound  === round) {
+        if (casesOpenedThisRound < numCasesOpenedPerRound[round] && thisRound === round) {
             var $selectedCase = $(this);
             removeSelectedCase($selectedCase);
             console.log("Number of Cases Opened This Round: " + casesOpenedThisRound);
@@ -141,38 +140,67 @@ function bankersOffer() {
 
     console.log("P-value: " + pvalue);
     console.log("z: " + z);
-    console.log("Expected Value: " + ex);
+    console.log("Expected Value: $" + formatNumber(Math.round(ex)));
     console.log("Pi: " + pi);
 
     console.log("Banker's Offer: $" + formatNumber(offer));
 
-    offerDeal();
+    offerDeal(round);
 }
 
-function offerDeal() {
+function counterOffer(counter) {
+    
+}
+
+function offerDeal(thisRound) {
     $("#deal-btn").attr("data-offer", "yes");
     $("#no-deal-btn").attr("data-offer", "yes");
 
     $("#deal-btn").click(function () {
-        $("#deal-btn").attr("data-offer", "no");
-        $("#no-deal-btn").attr("data-offer", "no");
+        if (thisRound === round) {
+            $("#deal-btn").attr("data-offer", "no");
+            $("#no-deal-btn").attr("data-offer", "no");
 
-        winnings = offer;
+            winnings = offer;
+            console.log("Winnings: $" + formatNumber(winnings));
+        }
     });
 
     $("#no-deal-btn").click(function () {
-        $("#deal-btn").attr("data-offer", "no");
-        $("#no-deal-btn").attr("data-offer", "no");
+        if (thisRound === round) {
+            $("#deal-btn").attr("data-offer", "no");
+            $("#no-deal-btn").attr("data-offer", "no");
 
-        newRound();
-        openCase();
+            newRound();
+        }
+    });
 
+    $("#counter-btn").click(function() {
+        if (thisRound === round) {
+            
+        }
+    });
+}
+
+function selectFinalCase(thisRound) {
+    console.log("Select your Final Case to take Home");
+    $(".case").click(function () {
+        if (thisRound === round) {
+            winnings = parseFloat($(this).val());
+            console.log("Case Opened: " + $(this).text());
+            console.log("Winnings: $" + formatNumber(winnings));
+        }
     });
 }
 
 function newRound() {
+    console.log("New Round Called");
     round++;
     casesOpenedThisRound = 0;
+    if (round <= 9)
+        openCase(round);
+    else
+        selectFinalCase(round);
 }
 
 function calcExpectedValue() {
