@@ -43,7 +43,7 @@
               <i class="fas fa-stop icon-stop" id="icon"></i>
             </button>
             <button class="resume-btn right" id="resumeBtn">
-              <i class="fas fa-music icon-resume" id="icon"></i>
+              <i class="fas fa-play icon-resume" id="icon"></i>
             </button>
             <button class="pause-btn right" id="pauseBtn">
               <i class="fas fa-pause-circle icon-pause" id="icon"></i>
@@ -55,13 +55,14 @@
 
     <div class="container">
       <div class="row center">
-        <div class="col s12 m4 l2 teal" id="bankerInfo">
-          Banker
+        <div class="col s12 m4 l2 teal">
+          <div class="row bankerInfo" id="bankerInfo">Banker<br /></div>
+          <div class="row yourCase">
             <div>Your Case</div>
             <div id="your-case" class="card case unchosen-case"></div>
         </div>
-        <div class="col s12 m8 l7 deep-orange" id="gameCasesEl">
-          <div class="row">
+        <div class="col s12 m8 l6 deep-orange" id="gameCasesEl">
+          <div class="row cards">
             <div class="card case not-clicked" id="case-21">21</div>
             <div class="card case not-clicked" id="case-22">22</div>
             <div class="card case not-clicked" id="case-23">23</div>
@@ -95,18 +96,23 @@
             <div class="card case not-clicked" id="case-5">5</div>
             <div class="card case not-clicked" id="case-6">6</div>
           </div>
-        </div>
-        <div class="col s12 m4 l3 teal" id="moneyAmountTable">
-          <div id="money-table">
+          <div class="row">
+            <div class="col s12 m4 l12 center teal" id="instructionsDisplayed">
+              Display Instructions for round
+            </div>
+            <br />
+            <button
+              style="display: none;"
+              value="save"
+              id="saveWinnings"
+              onclick="writeData();"
+            >
+              Save Winnings
+            </button>
           </div>
         </div>
-      </div>
-      <div class="row">
-        <div
-          class="col s12 m4 l5 offset-l3 center teal"
-          id="instructionsDisplayed"
-        >
-          Display Instructions for round
+        <div class="col s12 m4 l4 center teal" id="moneyAmountTable">
+          <div id="money-table"></div>
         </div>
         <div id="infoDisplayed"></div>
       </div>
@@ -124,7 +130,7 @@
         </div>
       </div>
     </div>
-  
+
     <!--Javascript Links-->
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
@@ -133,6 +139,8 @@
     <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.5/firebase-database.js"></script>
+    <script src="./assets/js/store.js"></script>
     <script src="./assets/js/intro.js"></script>
     <script src="./assets/js/script.js"></script>
   </body>

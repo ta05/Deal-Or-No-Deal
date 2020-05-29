@@ -9,25 +9,28 @@ var firebaseConfig = {
   appId: "1:214174832716:web:2f57cd660785bdc1ccfce9",
   measurementId: "G-L7N4E48R2Z",
 };
+var user1;
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
 function onSignIn() {
-  console.log("signin");
+  // console.log("signin");
   var provider = new firebase.auth.GoogleAuthProvider();
   firebase
     .auth()
     .signInWithPopup(provider)
     .then(function (result) {
-      console.log("success");
+      // console.log("success");
       var token = result.credential.accessToken;
       var user = result.user;
+      user1 = 2;
       if (user) {
         window.location = "index.html";
       }
+      // console.log(user1);
     })
     .catch(function (error) {
-      console.log("fail");
+      // console.log("fail");
       var errorCode = error.code;
       var errorMessage = error.message;
       var email = error.email;
@@ -39,11 +42,21 @@ function onSignOut() {
     .auth()
     .signOut()
     .then(function () {
-      console.log("success");
+      // console.log("success");
       window.location = "intro.html";
     })
     .catch(function (error) {
       // An error happened.
-      console.log("error");
+      // console.log("error");
+    });
+}
+
+//Function that stores winnings into our firebase database
+function writeData() {
+  firebase
+    .database()
+    .ref("User")
+    .push({
+      score: localStorage.getItem("winnings"),
     });
 }
