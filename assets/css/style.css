@@ -22,7 +22,61 @@ h2 {
   margin-top: 0.5rem;
 }
 
-/*Style for NavBar*/
+/*Style for Instructions*/
+.instructions-bg {
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8)),
+    url(../images/bginstructions.jpeg);
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  -o-background-size: cover;
+  background-position: center;
+}
+/*Cards Style*/
+.card {
+  width: 60px;
+  height: 50px;
+  display: inline-block;
+  margin-left: 0.5rem;
+  background-image: url(../images/case.jpg);
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  -o-background-size: cover;
+  background-position: center;
+  padding-top: 1rem;
+  font-weight: bold;
+}
+.cards {
+  padding-top: 5rem;
+}
+#gameCasesEl {
+  margin: 0 0.5rem;
+  background-image: url(../images/bgcases.jpeg);
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  -o-background-size: cover;
+  background-position: center;
+}
+
+.unchosen-case {
+  display: none;
+}
+
+.chosen-case {
+  display: block;
+}
+
+.players-case {
+  visibility: hidden;
+}
+
+.selected-case {
+  visibility: hidden;
+}
+
+/*Navigation Style*/
 nav {
   margin-bottom: 2rem;
   margin-top: 1rem;
@@ -101,10 +155,11 @@ nav {
   font-size: 70px;
   color: black;
   font-weight: bold;
-  margin: 1rem;
+  margin: 1.5rem;
 }
+
 /*Style for Instructions*/
-.instructions-bg {
+#instructions-bg {
   background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8)),
     url(../images/bginstructions.jpeg);
   -webkit-background-size: cover;
@@ -112,27 +167,25 @@ nav {
   background-size: cover;
   -o-background-size: cover;
   background-position: center;
-  padding: 0 1rem;
+  padding: 1rem 1rem;
 }
-/*Cards(cases) Style*/
-.card {
-  width: 60px;
-  height: 50px;
-  display: inline-block;
-  margin-left: 1rem;
-}
-#gameCasesEl {
-  margin: 0 0.5rem;
-  background-image: url(../images/bgcases.jpeg);
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  background-size: cover;
-  -o-background-size: cover;
-  background-position: center;
-}
+
 /*Style for Money Amount Table*/
 #moneyAmountTable {
   width: 200px;
+}
+
+[data-inplay="no"] {
+  text-decoration: line-through;
+}
+
+/*Style for Deal, No Deal Buttons*/
+[data-offer="no"] {
+  pointer-events: none;
+}
+
+[data-offer="yes"] {
+  pointer-events: auto;
 }
 
 /*Style for sign in and sign out btns on intro page*/
@@ -149,4 +202,8 @@ nav {
   font-weight: bolder;
   color: black;
   background-color: rgba(172, 172, 172, 0.842);
+}
+/*Style for banker info/your case column*/
+.bankerInfo {
+  margin-bottom: 4rem;
 }
