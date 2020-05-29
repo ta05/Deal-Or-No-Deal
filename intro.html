@@ -44,7 +44,7 @@
               <i class="fas fa-stop icon-stop" id="icon"></i>
             </button>
             <button class="resume-btn right" id="resumeBtn">
-              <i class="fas fa-music icon-resume" id="icon"></i>
+              <i class="fas fa-play-circle icon-resume" id="icon"></i>
             </button>
             <button class="pause-btn right" id="pauseBtn">
               <i class="fas fa-pause-circle icon-pause" id="icon"></i>
@@ -55,63 +55,59 @@
     </header>
     <!--Container for Instructions-->
     <div class="container">
-      <div class="row">
-        <div class="col l12 instructionsEl">
-          <div class="instructions-bg">
-            <section>
-              <h2>
-                Game Instructions
-              </h2>
-              <ul>
-                <p>
-                  Before Playing
-                </p>
-                <li>
-                  1. If you would like to store your highscore please log in
-                  using your Google credentials. If not you may continue as a
-                  guest. To listen to music you can search an artist and a
-                  playlist will begin playing. The pause, resume, and stop
-                  buttons are avaliable if needed.
-                </li>
-                <li>
-                  2. Once you have logged in or continued as guest you will be
-                  redirected to the game.
-                </li>
-                <p>Game Rules</p>
-                <li>
-                  1. Choose your initial case. This case will remain with you
-                  until the end of the game.
-                </li>
-                <li>
-                  2. After choosing your case you will choose and eliminate 6
-                  cases.
-                </li>
-                <li>
-                  3. The banker will then call you with an offer to buy your
-                  case, our game will display the expected value of the offer.
-                </li>
-                <li>
-                  4. You can then choose to accept the banker's offer by
-                  clicking on the Deal button, or you can reject it by clicking
-                  on the No Deal button.
-                </li>
-                <li>
-                  5. If you select the Deal button, you accept his offer and the
-                  game ends. If you select No Deal, the game continues and
-                  rounds will proceed.
-                </li>
-                <li>
-                  6. Once there is 1 case left, you will have the option of
-                  choosing your case or the final case in the game.
-                </li>
-                <li>
-                  7. After making your decision the case you have chosen will
-                  open and display your winnings. Once the game has ended, make
-                  sure to sign out! :)
-                </li>
-              </ul>
-            </section>
-          </div>
+      <div class="row instructionsEl">
+        <div class="col l12 instructions-bg" id="instructions-bg">
+          <h2>
+            Game Instructions
+          </h2>
+          <ul>
+            <p>
+              Before Playing
+            </p>
+            <li>
+              1. If you would like to store your highscore please log in using
+              your Google credentials. If not you may continue as a guest. To
+              listen to music you can search an artist and a playlist will begin
+              playing. The pause, resume, and stop buttons are avaliable if
+              needed.
+            </li>
+            <li>
+              2. Once you have logged in or continued as guest you will be
+              redirected to the game.
+            </li>
+            <p>Game Rules</p>
+            <li>
+              1. Choose your initial case. This case will remain with you until
+              the end of the game.
+            </li>
+            <li>
+              2. After choosing your case you will choose and eliminate 6 cases.
+            </li>
+            <li>
+              3. The banker will then call you with an offer to buy your case,
+              our game will display the expected value of the offer inlcuding
+              other statistics such as mean,standard deviation, etc.
+            </li>
+            <li>
+              4. You can then choose to accept the banker's offer by clicking on
+              the Deal button, or you can reject it by clicking on the No Deal
+              button.
+            </li>
+            <li>
+              5. If you select the Deal button, you accept his offer and the
+              game ends. If you select No Deal, the game continues and rounds
+              will proceed.
+            </li>
+            <li>
+              6. Once there is 1 case left, you will have the option of choosing
+              your case or the final case in the game.
+            </li>
+            <li>
+              7. After making your decision the case you have chosen will open
+              and display your winnings. Once the game has ended, make sure to
+              sign out!
+            </li>
+          </ul>
         </div>
       </div>
       <!--Row that displays sign in and guest btns-->
@@ -135,6 +131,7 @@
     <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.5/firebase-database.js"></script>
     <script src="./assets/js/store.js"></script>
     <script src="./assets/js/intro.js"></script>
   </body>
