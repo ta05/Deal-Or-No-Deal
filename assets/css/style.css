@@ -22,7 +22,48 @@ h2 {
   margin-top: 0.5rem;
 }
 
+
 /*Style for NavBar*/
+
+/*Style for Instructions*/
+.instructions-bg {
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8)),
+    url(../images/bginstructions.jpeg);
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  -o-background-size: cover;
+  background-position: center;
+}
+/*Cards Style*/
+.card {
+  width: 60px;
+  height: 50px;
+  display: inline-block;
+  margin-left: 1rem;
+}
+#gameCasesEl {
+  margin: 0 0.5rem;
+  background-image: url(../images/bgcases.jpeg);
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  -o-background-size: cover;
+  background-position: center;
+}
+
+.unchosen-case {
+  display: none;
+}
+
+.chosen-case {
+  display: block;
+}
+.players-case {
+  visibility: hidden;
+}
+
+/*Navigation Style*/
 nav {
   margin-bottom: 2rem;
   margin-top: 1rem;

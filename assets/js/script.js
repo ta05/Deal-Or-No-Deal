@@ -1,70 +1,125 @@
-//Music API for Index
-var settings = {
-  async: true,
-  crossDomain: true,
-  url: "https://deezerdevs-deezer.p.rapidapi.com/search?q=calvin%20harris",
-  method: "GET",
-  headers: {
-    "x-rapidapi-host": "deezerdevs-deezer.p.rapidapi.com",
-    "x-rapidapi-key": "ef5bea5c6amsh497e430e661a57bp15627ejsn17abd9160d1e",
-  },
+var moneyList = [0.01, 1, 5, 10, 25, 50, 75, 100, 200, 300, 400, 500, 750, 1000, 5000, 10000, 25000, 50000, 75000, 100000, 200000, 300000, 400000, 500000, 750000, 1000000];
+var moneyValuesRemaining;
+var totalCasesOpened;
+var totalCases;
+var remainingMoney;
+var round;
+var casesOpenedThisRound;
+var numCasesOpenedPerRound = {
+    1: 6,
+    2: 5,
+    3: 4,
+    4: 3,
+    5: 2,
+    6: 1,
+    7: 1,
+    8: 1,
+    9: 1
 };
-var playlist = [];
-var playlistTitles = [];
-$.ajax(settings).done(function (response) {
-  console.log(response);
-  for (i = 0; i < response.data.length; i++)
-    playlist.push(response.data[i].preview);
-  //Playlist titles
-  for (i = 0; i < response.data.length; i++)
-    playlistTitles.push(response.data[i].title);
+var gameState;
+var hasPlayerSelectedCase;
 
-  playMusic(0, playlist);
-});
+initialize();
 
-console.log(playlist);
-console.log(playlistTitles);
-//Function to play music (Howler Js)
-function playMusic(i, playlist) {
-  var sound = new Howl({
-    src: [playlist[i]],
-    onend: function () {
-      if (i + 1 == playlist.length) {
-        playMusic(0, playlist);
-      } else {
-        playMusic(i + 1, playlist);
-      }
-    },
-  });
-  //Play/Pause/Resume Btns
-  sound.play();
-  $("#playBtn").on("click", function () {
-    return sound;
-  });
+function gameFlow() {
+    switch (gameState) {
+        case 0:
+            while (!hasPlayerSelectedCase) {
+                $(".case").click(function () {
+                    var $selectedCase = $(this);
+                    pickMyCase($selectedCase);
+                    hasPlayerSelectedCase = true;
+                });
+            }
+            gameState = 1;
+            gameFlow();
+            break;
+        case 1:
+            while (casesOpenedThisRound < numCasesOpenedPerRound[round]) {
+                $(".case").click(".not-clicked", function () {
+                    var $selectedCase = $(this);
+                    selectCase($selectedCase);
+                });
+            }
+            gameState = 2;
+            
+    };
+}
 
-  $("#resumeBtn").on("click", function () {
-    sound.mute(false);
-  });
-  $("#pauseBtn").on("click", function () {
-    sound.mute(true);
-  });
-  $("#stopBtn").on("click", function () {
-    sound.stop();
-  });
-  sound.on("end", function () {
-    $("#playBtn").disabled = true;
-    $("#playBtn").css("display", "none");
-  });
-  sound.on("play", function () {
-    $("#playBtn").disabled = true;
-    $("#playBtn").css("display", "none");
-  });
-  sound.on("stop", function () {
-    $("#playBtn").css("display", "none");
-    $("#resumeBtn").css("display", "none");
-    $("#pauseBtn").css("display", "none");
-    $("#stopBtn").css("display", "none");
-  });
+function initialize() {
+    createMoneyTable();
+    assignCaseAmounts();
+    moneyValuesRemaining = moneyList.slice();
+    gameState = 0;
+    hasPlayerSelectedCase = false;
+}
 
-  playMusic(0, playlist);
+function createMoneyTable() {
+    for (var i = 0; i < 13; i++) {
+        var rowEl = $("<div>").addClass("row");
+
+        var divOne = $("<div>").text("$" + formatNumber(moneyList[i])).val(moneyList[i]).addClass("col");
+        var divTwo = $("<div>").text("$" + formatNumber(moneyList[i + 13])).val(moneyList[i + 13]).addClass("col");
+    
+        rowEl.append(divOne, divTwo);
+        $("#money-table").append(rowEl);
+    }
+}
+
+function assignCaseAmounts() {
+    totalCasesOpened = 0;
+    totalCases = moneyList.length;
+    remainingMoney = calcTotalMoneyAmount();
+
+    var values = moneyList.slice();
+    for (var i = 26; i >= 1; i--){
+        var randNum = Math.floor(Math.random() * values.length);
+        var caseValue = values[randNum];
+
+        $("#case-" + (i)).attr("value", caseValue);
+
+        values.splice(values.indexOf(caseValue), 1);
+    }
+}
+
+function pickMyCase(el) {
+    $("#your-case").addClass("chosen-case").text($(el).text()).val($(el).val());
+    $(el).removeClass("not-clicked").addClass("players-case");
+    round = 1;
+}
+
+function selectCase(el) {
+    totalCasesOpened++;
+    casesOpenedThisRound++;
+    remainingMoney -= parseFloat($(el).val());
+    moneyValuesRemaining.splice(moneyValuesRemaining.splice($(el).val(), 1));
+    $(el).removeClass("not-clicked").addClass("selected-case");
+}
+
+function calcExpectedValue() {
+    return remainingMoney / (totalCases - totalCasesOpened);
+}
+
+function calcEX2() {
+    var ex2 = 0;
+    for (var i = 0; i < moneyValuesRemaining.length; i++)
+        ex2 += Math.pow(moneyValuesRemaining[i], 2);
+    return ex2;
+}
+
+function calcStandardDeviation() {
+    return Math.pow(calcExpectedValue(), 2) - calcEX2();
+}
+
+function calcTotalMoneyAmount() {
+    var amount = 0;
+    for (var i = 0; i < moneyList.length; i++)
+        amount += moneyList[i];
+    return amount;
+}
+
+function formatNumber(num) {
+    if(num>1)
+        return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return num;
 }
