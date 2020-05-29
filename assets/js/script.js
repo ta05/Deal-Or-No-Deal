@@ -50,6 +50,8 @@ function initialize() {
     selectPlayersCase();
 }
 
+/* Game setup. Creates the Money Table, Assigns the Case Values, Resets Global Variables and Creates the DEAL and NO DEAL buttons */
+
 function createMoneyTable() {
     for (var i = 0; i < 13; i++) {
         var rowEl = $("<div>").addClass("row");
@@ -96,22 +98,7 @@ function createDealButtons() {
     $("#bankerInfo").append(dealEl, noDealEl, counterInput, counterEl);
 }
 
-function displayMyCase(el) {
-    $("#your-case").addClass("chosen-case").text($(el).text()).val($(el).val());
-    $(el).removeClass("not-clicked").addClass("players-case");
-}
-
-function removeSelectedCase(el) {
-    totalCasesOpened++;
-    casesOpenedThisRound++;
-    var amount = parseFloat($(el).val())
-    remainingMoney -= amount;
-    moneyValuesRemaining.splice(moneyValuesRemaining.indexOf(amount), 1);
-    console.log("Case Opened: " + $(el).text());
-    console.log("Value: $" + formatNumber(amount));
-    $(el).removeClass("not-clicked").addClass("selected-case");
-    strikeOutTable(amount);
-}
+/* Code for the Actual Game */
 
 function selectPlayersCase() {
     displayInstructions();
@@ -125,6 +112,11 @@ function selectPlayersCase() {
             newRound();
         }
     });
+}
+
+function displayMyCase(el) {
+    $("#your-case").addClass("chosen-case").text($(el).text()).val($(el).val());
+    $(el).removeClass("not-clicked").addClass("players-case");
 }
 
 function openCase(thisRound) {
@@ -142,6 +134,19 @@ function openCase(thisRound) {
                 displayInstructions();
         }
     });
+}
+
+function removeSelectedCase(el) {
+    totalCasesOpened++;
+    casesOpenedThisRound++;
+    var amount = parseFloat($(el).val())
+    remainingMoney -= amount;
+    moneyValuesRemaining.splice(moneyValuesRemaining.indexOf(amount), 1);
+    console.log("Case Opened: " + $(el).text());
+    console.log("Value: $" + formatNumber(amount));
+    $(el).removeClass("not-clicked").addClass("selected-case");
+    strikeOutTable(amount);
+    updateStatsTable();
 }
 
 function bankersOffer() {
@@ -236,6 +241,27 @@ function newRound() {
     }
 }
 
+/* Event Listener for the More Stats Button */
+$("#stats-btn").click(function () {
+    if ($("#stats-table-values").css("display") === "none")
+        $("#stats-table-values").css("display", "block");
+    else
+        $("#stats-table-values").css("display", "none");
+});
+
+/*Updates the Stats Table */
+function updateStatsTable() {
+    var ex = calcExpectedValue();
+    var ex2 = calcEX2();
+    $("#expected-value").text("Expected Value: $" + formatNumber(Math.round(ex)));
+    $("#standard-deviation").text("Standard Deviation: $" + formatNumber(Math.round(calcStandardDeviation(ex, ex2))));
+    $("#median").text("Median: $" + formatNumber(calcMedian(moneyValuesRemaining)));
+    $("#first-quartile").text("First Quartile: $" + formatNumber(calc25thPercentile(moneyValuesRemaining)));
+    $("#third-quartile").text("Third Quartile: $" + formatNumber(calc75thPercentile(moneyValuesRemaining)));
+}
+
+/* Formatting Functions and Displaying Instructions and Info for the User */
+
 function displayInstructions() {
     var instructEl = $("#instructionsDisplayed");
     switch (gameState) {
@@ -287,19 +313,54 @@ function strikeOutTable(amount) {
     $("div [value='" + amount + "']").attr("data-inplay", "no");
 }
 
+function formatNumber(num) {
+    if(num>1)
+        return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return num;
+}
+
+/* Calculations used in various functions */
+
 function calcExpectedValue() {
     return remainingMoney / (totalCases - totalCasesOpened);
 }
 
 function calcEX2() {
-    var ex2 = 0;
+    var x2 = 0;
     for (var i = 0; i < moneyValuesRemaining.length; i++)
-        ex2 += Math.pow(moneyValuesRemaining[i], 2);
+        x2 += Math.pow(moneyValuesRemaining[i], 2);
+    var ex2 = x2 / moneyValuesRemaining.length;
     return ex2;
 }
 
-function calcStandardDeviation() {
-    return Math.sqrt(Math.pow(calcExpectedValue(), 2) - calcEX2());
+function calcStandardDeviation(ex, ex2) {
+    return Math.sqrt(ex2 - Math.pow(ex, 2));
+}
+
+function calcMedian(list) {
+    var listLength = list.length;
+    if (listLength % 2 == 1)
+        return list[Math.floor(listLength / 2)];
+    else
+        return (list[listLength/2] + list[listLength/2 - 1]) / 2;
+}
+
+function calc25thPercentile(list) {
+    var listLength = list.length;
+    var index = Math.floor((listLength + 1) / 4) - 1;
+    var weight = ((listLength + 1) % 4)/4;
+    return list[index] * (1 - weight) + list[index + 1] * weight;
+}
+
+function calc75thPercentile(list) {
+    var listLength = list.length;
+    var index = Math.floor((listLength + 1) * 3 / 4) - 1;
+    var weight = (((listLength + 1) * 3) % 4)/4;
+    return list[index] * (1 - weight) + list[index + 1] * weight;
+}
+
+function percentOfExpected(value) {
+    return Math.round(value / calcExpectedValue() * 100);
 }
 
 function calcTotalMoneyAmount() {
@@ -307,12 +368,6 @@ function calcTotalMoneyAmount() {
     for (var i = 0; i < moneyList.length; i++)
         amount += moneyList[i];
     return amount;
-}
-
-function formatNumber(num) {
-    if(num>1)
-        return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    return num;
 }
 
 function percentile_z(p) {
