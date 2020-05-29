@@ -21,36 +21,39 @@
   </head>
   <body>
     <header>
+      <!--NavBar begins-->
       <nav>
         <div class="nav-wrapper">
+          <button class="introBtn left" id="introBtn">
+            <a href="intro.html" class="introTxt">Introduction</a>
+          </button>
           <a href="index.html" class="brand-logo center" id="gameTitle"
             >Deal or No Deal</a
           >
-          <ul>
-            <li><a href="intro.html" id="introA">Introduction</a></li>
-          </ul>
-          <button class="signout-btn-game right" onclick="onSignOut();">
+          <button class="signout-btn-game left" onclick="onSignOut();">
             Sign Out
           </button>
-          <button class="play-btn right" id="playBtn">
-            <i class="fas fa-play-circle icon-play" id="icon"></i>
-          </button>
-          <button class="pause-btn right" id="pauseBtn">
-            <i class="fas fa-pause-circle icon-pause" id="icon"></i>
-          </button>
-          <button class="resume-btn right" id="resumeBtn">
-            <i class="fas fa-music icon-resume" id="icon"></i>
-          </button>
-          <button class="stop-btn right" id="stopBtn">
-            <i class="fas fa-stop icon-stop" id="icon"></i>
-          </button>
-          <!-- <button class="skip-btn right" id="skipBtn">
-            <i class="fas fa-skip icon-skip" id="icon"></i>
-          </button>
-          <div class="nowPlaying"></div> -->
+          <div class="col l12 center">
+            <button
+              id="add-music"
+              type="submit"
+              class="fas fa-search right"
+            ></button>
+            <input class="music-input right" type="text" id="music-input" />
+            <button class="stop-btn right" id="stopBtn">
+              <i class="fas fa-stop icon-stop" id="icon"></i>
+            </button>
+            <button class="resume-btn right" id="resumeBtn">
+              <i class="fas fa-music icon-resume" id="icon"></i>
+            </button>
+            <button class="pause-btn right" id="pauseBtn">
+              <i class="fas fa-pause-circle icon-pause" id="icon"></i>
+            </button>
+          </div>
         </div>
       </nav>
     </header>
+    <!--Container for Instructions-->
     <div class="container">
       <div class="row">
         <div class="col l12 instructionsEl">
@@ -64,11 +67,11 @@
                   Before Playing
                 </p>
                 <li>
-                  1. Please log in using your gmail account, if you would like
-                  to store your highscore.If not you may continue as a guest. To
-                  listen to music you can click the page or the "play button",
-                  you will have the option to pause or resume the current track
-                  or stop the music entirely.
+                  1. If you would like to store your highscore please log in
+                  using your Google credentials. If not you may continue as a
+                  guest. To listen to music you can search an artist and a
+                  playlist will begin playing. The pause, resume, and stop
+                  buttons are avaliable if needed.
                 </li>
                 <li>
                   2. Once you have logged in or continued as guest you will be
@@ -88,14 +91,14 @@
                   case, our game will display the expected value of the offer.
                 </li>
                 <li>
-                  4. You can then choose to accept his offer by clicking on the
-                  Deal button, or you can reject him by clicking on the No Deal
-                  button.
+                  4. You can then choose to accept the banker's offer by
+                  clicking on the Deal button, or you can reject it by clicking
+                  on the No Deal button.
                 </li>
                 <li>
                   5. If you select the Deal button, you accept his offer and the
-                  game ends. If you select No Deal, the game continues; 2-5 will
-                  loop throughout the game.
+                  game ends. If you select No Deal, the game continues and
+                  rounds will proceed.
                 </li>
                 <li>
                   6. Once there is 1 case left, you will have the option of
@@ -103,13 +106,15 @@
                 </li>
                 <li>
                   7. After making your decision the case you have chosen will
-                  open and display your winnings.
+                  open and display your winnings. Once the game has ended, make
+                  sure to sign out! :)
                 </li>
               </ul>
             </section>
           </div>
         </div>
       </div>
+      <!--Row that displays sign in and guest btns-->
       <div class="row">
         <div class="col l12 center">
           <button class="signin-btn" onclick="onSignIn();">Sign In</button>
@@ -130,6 +135,7 @@
     <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-firestore.js"></script>
+    <script src="./assets/js/store.js"></script>
     <script src="./assets/js/intro.js"></script>
   </body>
 </html>
