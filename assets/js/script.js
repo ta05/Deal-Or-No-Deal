@@ -42,6 +42,8 @@ initialize();
 
 
 function initialize() {
+    localStorage.removeItem("winnings");
+    
     createMoneyTable();
     assignVariables();
     assignCaseAmounts();
@@ -190,6 +192,8 @@ function offerDeal(thisRound) {
 
             gameState = 11;
             winnings = offer;
+            localStorage.setItem("winnings", winnings);
+            $("#saveWinnings").css("display", "block");
             displayInfo();
             console.log("Winnings: $" + formatNumber(winnings));
         }
@@ -220,6 +224,8 @@ function selectFinalCase(thisRound) {
             hasSelectedFinalCase = true;
             selectedCase = $(this);
             winnings = parseFloat(selectedCase.val());
+            localStorage.setItem("winnings", winnings);
+            $("#saveWinnings").css("display", "block");
             displayInfo();
             console.log("Case Opened: " + selectedCase.text());
             console.log("Winnings: $" + formatNumber(selectedCase.val()));
