@@ -59,7 +59,12 @@ h2 {
 .chosen-case {
   display: block;
 }
+
 .players-case {
+  visibility: hidden;
+}
+
+.selected-case {
   visibility: hidden;
 }
 
@@ -174,6 +179,15 @@ nav {
 /*Style for Money Amount Table*/
 #moneyAmountTable {
   width: 200px;
+}
+
+/*Style for Deal, No Deal Buttons*/
+[data-offer="no"] {
+  pointer-events: none;
+}
+
+[data-offer="yes"] {
+  pointer-events: auto;
 }
 
 /*Style for sign in and sign out btns on intro page*/
