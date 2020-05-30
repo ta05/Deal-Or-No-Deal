@@ -240,6 +240,7 @@ nav {
     rgb(255, 212, 102, 0.3)
   );
   font-weight: bold;
+  display: none;
 }
 #stats-btn {
   margin-bottom: 0.5rem;
