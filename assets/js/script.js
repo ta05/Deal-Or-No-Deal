@@ -1,5 +1,4 @@
-var moneyList = [
-  0.01,
+var moneyList = [0.01,
   1,
   5,
   10,
@@ -16,16 +15,7 @@ var moneyList = [
   5000,
   10000,
   25000,
-  50000,
-  75000,
-  100000,
-  200000,
-  300000,
-  400000,
-  500000,
-  750000,
-  1000000,
-];
+  50000,75000,100000,200000,300000,400000,500000,750000,1000000];
 var numCasesOpenedPerRound = {
   1: 6,
   2: 5,
@@ -115,15 +105,15 @@ function assignVariables() {
 }
 
 function assignCaseAmounts() {
-  var values = moneyList.slice();
-  for (var i = 26; i >= 1; i--) {
-    var randNum = Math.floor(Math.random() * values.length);
-    var caseValue = values[randNum];
+    var values = moneyList.slice();
+    for (var i = 26; i >= 1; i--) {
+        var randNum = Math.floor(Math.random() * values.length);
+        var caseValue = values[randNum];
 
-    $("#case-" + i).val(caseValue);
+        $("#case-" + i).val(caseValue);
 
-    values.splice(values.indexOf(caseValue), 1);
-  }
+        values.splice(values.indexOf(caseValue), 1);
+    }
 }
 
 function createDealButtons() {
@@ -135,22 +125,22 @@ function createDealButtons() {
 /* Code for the Actual Game */
 
 function selectPlayersCase() {
-  displayInstructions();
-  $(".case").click(function () {
-    if (!hasPlayerSelectedCase) {
-      myCase = $(this);
-      displayMyCase(myCase);
-      displayInfo();
-      hasPlayerSelectedCase = true;
-      gameState = 1;
-      newRound();
-    }
-  });
+    displayInstructions();
+    $(".case").click(function () {
+        if (!hasPlayerSelectedCase) {
+        myCase = $(this);
+        displayMyCase(myCase);
+        displayInfo();
+        hasPlayerSelectedCase = true;
+        gameState = 1;
+        newRound();
+        }
+    });
 }
 
 function displayMyCase(el) {
-  $("#your-case").addClass("chosen-case").text($(el).text()).val($(el).val());
-  $(el).removeClass("not-clicked").addClass("players-case");
+    $("#your-case").addClass("chosen-case").text($(el).text()).val($(el).val());
+    $(el).removeClass("not-clicked").addClass("players-case");
 }
 
 function openCase(thisRound) {
@@ -181,17 +171,17 @@ function removeSelectedCase(el) {
 }
 
 function bankersOffer() {
-  gameState = 2;
+    gameState = 2;
 
-  var mean = bankersOfferMeanSD[round][0];
-  var sd = bankersOfferMeanSD[round][1];
+    var mean = bankersOfferMeanSD[round][0];
+    var sd = bankersOfferMeanSD[round][1];
 
-  var pvalue = Math.random() * 0.95 - 0.475;
-  var z = percentile_z(pvalue);
-  var ex = calcExpectedValue();
-  var pi = z * sd + mean;
+    var pvalue = Math.random() * 0.95 - 0.475;
+    var z = percentile_z(pvalue);
+    var ex = calcExpectedValue();
+    var pi = z * sd + mean;
 
-  offer = Math.round(0.01 * pi * ex);
+    offer = Math.round(0.01 * pi * ex);
 
     offerDeal(round);
 }
@@ -264,29 +254,29 @@ function newRound() {
 
 /* Event Listener for the More Stats Button */
 $("#stats-btn").click(function () {
-  if ($("#stats-table-values").css("display") === "none")
-    $("#stats-table-values").css("display", "block");
-  else $("#stats-table-values").css("display", "none");
+    if ($("#stats-table-values").css("display") === "none")
+        $("#stats-table-values").css("display", "block");
+    else $("#stats-table-values").css("display", "none");
 });
 
 /*Updates the Stats Table */
 function updateStatsTable() {
-  var ex = calcExpectedValue();
-  var ex2 = calcEX2();
-  $("#expected-value").text("Expected Value: $" + formatNumber(Math.round(ex)));
-  $("#standard-deviation").text(
-    "Standard Deviation: $" +
-      formatNumber(Math.round(calcStandardDeviation(ex, ex2)))
-  );
-  $("#median").text(
-    "Median: $" + formatNumber(calcMedian(moneyValuesRemaining))
-  );
-  $("#first-quartile").text(
-    "First Quartile: $" + formatNumber(calc25thPercentile(moneyValuesRemaining))
-  );
-  $("#third-quartile").text(
-    "Third Quartile: $" + formatNumber(calc75thPercentile(moneyValuesRemaining))
-  );
+    var ex = calcExpectedValue();
+    var ex2 = calcEX2();
+    $("#expected-value").text("Expected Value: $" + formatNumber(Math.round(ex)));
+    $("#standard-deviation").text(
+        "Standard Deviation: $" +
+        formatNumber(Math.round(calcStandardDeviation(ex, ex2)))
+    );
+    $("#median").text(
+        "Median: $" + formatNumber(calcMedian(moneyValuesRemaining))
+    );
+    $("#first-quartile").text(
+        "First Quartile: $" + formatNumber(calc25thPercentile(moneyValuesRemaining))
+    );
+    $("#third-quartile").text(
+        "Third Quartile: $" + formatNumber(calc75thPercentile(moneyValuesRemaining))
+    );
 }
 
 /* Formatting Functions and Displaying Instructions and Info for the User */
@@ -301,36 +291,36 @@ function displayOffer(offer) {
 
 function removeOffer() {
     $("#bankers-offer").remove();
-    $(".stats").empty();
+    $(".stats").empty().text("Percent of Expected");
 }
 
 function displayInstructions() {
-  var instructEl = $("#instructionsDisplayed");
-  switch (gameState) {
-    case 0:
-      instructEl.text("Select your case");
-      break;
-    case 1:
-      if (numCasesOpenedPerRound[round] - casesOpenedThisRound > 1)
-        instructEl.text(
-          "Open " +
-            (numCasesOpenedPerRound[round] - casesOpenedThisRound) +
-            " cases."
-        );
-      else
-        instructEl.text(
-          "Open " +
-            (numCasesOpenedPerRound[round] - casesOpenedThisRound) +
-            " case."
-        );
-      break;
-    case 2:
-      instructEl.text("DEAL or NO DEAL?");
-      break;
-    case 10:
-      instructEl.text("Select your Final Case to take Home");
-      break;
-  }
+    var instructEl = $("#instructionsDisplayed");
+    switch (gameState) {
+        case 0:
+        instructEl.text("Select your case");
+        break;
+        case 1:
+        if (numCasesOpenedPerRound[round] - casesOpenedThisRound > 1)
+            instructEl.text(
+            "Open " +
+                (numCasesOpenedPerRound[round] - casesOpenedThisRound) +
+                " cases."
+            );
+        else
+            instructEl.text(
+            "Open " +
+                (numCasesOpenedPerRound[round] - casesOpenedThisRound) +
+                " case."
+            );
+        break;
+        case 2:
+        instructEl.text("DEAL or NO DEAL?");
+        break;
+        case 10:
+        instructEl.text("Select your Final Case to take Home");
+        break;
+    }
 }
 
 function displayInfo() {
