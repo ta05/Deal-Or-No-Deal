@@ -111,12 +111,21 @@
             <div class="card case not-clicked" id="case-5">5</div>
             <div class="card case not-clicked" id="case-6">6</div>
           </div>
-          <div class="row">
+          <div class="row displayedInfo">
             <div class="col s12 m4 l12 center" id="instructionsDisplayed">
               Display Instructions for round
             </div>
             <br />
+            <div id="infoDisplayed"></div>
+            <br />
+            <input
+              class="save-winnings"
+              id="name"
+              placeholder="Name"
+              style="display: none;"
+            />
             <button
+              class="save-winnings"
               style="display: none;"
               value="save"
               id="saveWinnings"
@@ -129,7 +138,6 @@
         <div class="col s12 m4 l4 center" id="moneyAmountTable">
           <div id="money-table"></div>
         </div>
-        <div id="infoDisplayed"></div>
       </div>
     </div>
 
