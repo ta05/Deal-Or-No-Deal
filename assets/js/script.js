@@ -63,8 +63,8 @@ function createMoneyTable() {
     for (var i = 0; i < 13; i++) {
         var rowEl = $("<div>").addClass("row");
 
-        var divOne = $("<div>").text("$" + formatNumber(moneyList[i])).addClass("col").attr({ "data-inplay": "yes", "value": moneyList[i] }).css("border", "black 5px");
-        var divTwo = $("<div>").text("$" + formatNumber(moneyList[i + 13])).addClass("col").attr({ "data-inplay": "yes", "value": moneyList[i + 13] }).css("border", "black 5px");
+        var divOne = $("<div>").text("$" + formatNumber(moneyList[i])).addClass("col").attr({ "data-inplay": "yes", "value": moneyList[i] });
+        var divTwo = $("<div>").text("$" + formatNumber(moneyList[i + 13])).addClass("col").attr({ "data-inplay": "yes", "value": moneyList[i + 13] });
     
         rowEl.append(divOne, divTwo);
         $("#money-table").append(rowEl);
@@ -187,7 +187,7 @@ function offerDeal(thisRound) {
             gameState = 11;
             winnings = offer;
             localStorage.setItem("winnings", winnings);
-            $("#saveWinnings").css("display", "block");
+            $(".save-winnings").css("display", "block");
             displayInfo();
         }
     });
@@ -218,7 +218,7 @@ function selectFinalCase(thisRound) {
             selectedCase = $(this);
             winnings = parseFloat(selectedCase.val());
             localStorage.setItem("winnings", winnings);
-            $("#saveWinnings").css("display", "block");
+            $(".save-winnings").css("display", "block");
         }
     });
 }
