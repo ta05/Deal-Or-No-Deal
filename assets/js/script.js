@@ -1,43 +1,27 @@
-var moneyList = [0.01,
-  1,
-  5,
-  10,
-  25,
-  50,
-  75,
-  100,
-  200,
-  300,
-  400,
-  500,
-  750,
-  1000,
-  5000,
-  10000,
-  25000,
-  50000,75000,100000,200000,300000,400000,500000,750000,1000000];
+var moneyList = [0.01,1,5,10,25,50,75,100,200,300,400,500,750,1000,5000,10000,25000,50000,75000,100000,200000,300000,400000,500000,750000,1000000];
+
 var numCasesOpenedPerRound = {
-  1: 6,
-  2: 5,
-  3: 4,
-  4: 3,
-  5: 2,
-  6: 1,
-  7: 1,
-  8: 1,
-  9: 1,
+    1: 6,
+    2: 5,
+    3: 4,
+    4: 3,
+    5: 2,
+    6: 1,
+    7: 1,
+    8: 1,
+    9: 1,
 };
 
 var bankersOfferMeanSD = {
-  1: [22.485, 8.385],
-  2: [33.685, 11.232],
-  3: [44.87, 8.74],
-  4: [52.46, 13.5],
-  5: [63.745, 14.002],
-  6: [72.75, 12.719],
-  7: [74.98, 17.622],
-  8: [80.92, 17.26],
-  9: [78.88, 15.321],
+    1: [22.485, 8.385],
+    2: [33.685, 11.232],
+    3: [44.87, 8.74],
+    4: [52.46, 13.5],
+    5: [63.745, 14.002],
+    6: [72.75, 12.719],
+    7: [74.98, 17.622],
+    8: [80.92, 17.26],
+    9: [78.88, 15.321],
 };
 
 var moneyValuesRemaining;
@@ -332,9 +316,6 @@ function displayInfo() {
         case 1:
             infoEl.html("You opened Case " + selectedCase.text() + "<br>Value: $" + formatNumber(selectedCase.val()));
             break;
-        case 2:
-            infoEl.text("Banker's Offer: $" + formatNumber(offer));
-            break;
         case 10:
             infoEl.html("Your Final Case is Case " + selectedCase.text() + "<br>Winnings: $" + formatNumber(selectedCase.val()));
             break;
@@ -344,52 +325,52 @@ function displayInfo() {
 }
 
 function removeInfo() {
-  var infoEl = $("#infoDisplayed");
-  infoEl.html("");
+    var infoEl = $("#infoDisplayed");
+    infoEl.html("");
 }
 
 function strikeOutTable(amount) {
-  $("div [value='" + amount + "']").attr("data-inplay", "no");
+    $("div [value='" + amount + "']").attr("data-inplay", "no");
 }
 
 function formatNumber(num) {
-  if (num > 1) return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-  return num;
+    if (num > 1) return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return num;
 }
 
 /* Calculations used in various functions */
 
 function calcExpectedValue() {
-  return remainingMoney / (totalCases - totalCasesOpened);
+    return remainingMoney / (totalCases - totalCasesOpened);
 }
 
 function calcEX2() {
-  var x2 = 0;
-  for (var i = 0; i < moneyValuesRemaining.length; i++)
-    x2 += Math.pow(moneyValuesRemaining[i], 2);
-  var ex2 = x2 / moneyValuesRemaining.length;
-  return ex2;
+    var x2 = 0;
+    for (var i = 0; i < moneyValuesRemaining.length; i++)
+        x2 += Math.pow(moneyValuesRemaining[i], 2);
+    var ex2 = x2 / moneyValuesRemaining.length;
+    return ex2;
 }
 
 function calcStandardDeviation(ex, ex2) {
-  return Math.sqrt(ex2 - Math.pow(ex, 2));
+    return Math.sqrt(ex2 - Math.pow(ex, 2));
 }
 
 function calcMedian(list) {
-  var listLength = list.length;
-  if (listLength % 2 == 1) return list[Math.floor(listLength / 2)];
-  else return (list[listLength / 2] + list[listLength / 2 - 1]) / 2;
+    var listLength = list.length;
+    if (listLength % 2 == 1) return list[Math.floor(listLength / 2)];
+    else return (list[listLength / 2] + list[listLength / 2 - 1]) / 2;
 }
 
 function calc25thPercentile(list) {
-  var listLength = list.length;
-  var index = Math.floor((listLength + 1) / 4) - 1;
-  var weight = ((listLength + 1) % 4) / 4;
-  return list[index] * (1 - weight) + list[index + 1] * weight;
+    var listLength = list.length;
+    var index = Math.floor((listLength + 1) / 4) - 1;
+    var weight = ((listLength + 1) % 4) / 4;
+    return list[index] * (1 - weight) + list[index + 1] * weight;
 }
 
 function calc75thPercentile(list) {
-  var listLength = list.length;
+    var listLength = list.length;
   var index = Math.floor(((listLength + 1) * 3) / 4) - 1;
   var weight = (((listLength + 1) * 3) % 4) / 4;
   return list[index] * (1 - weight) + list[index + 1] * weight;
@@ -419,9 +400,9 @@ function evaluateOffer(ratio) {
 }
 
 function calcTotalMoneyAmount() {
-  var amount = 0;
-  for (var i = 0; i < moneyList.length; i++) amount += moneyList[i];
-  return amount;
+    var amount = 0;
+    for (var i = 0; i < moneyList.length; i++) amount += moneyList[i];
+    return amount;
 }
 
 function percentile_z(p) {
