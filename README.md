@@ -2,7 +2,7 @@
 
 # Live Site
 
-https://ta05.github.io/Project-1/intro.html
+https://ta05.github.io/Deal-Or-No-Deal/intro.html
 
 ## Developers
 
