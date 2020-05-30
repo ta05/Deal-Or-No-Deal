@@ -263,3 +263,29 @@ nav {
 #stats-table-values {
   padding: 0 1rem;
 }
+
+[data-offer-rank="excellent"] {
+  color: lightskyblue;
+}
+
+[data-offer-rank="great"] {
+  color: darkgreen;
+}
+[data-offer-rank="good"] {
+  color: green;
+}
+[data-offer-rank="fair"] {
+  color: greenyellow;
+}
+[data-offer-rank="mediocre"] {
+  color: orange;
+}
+[data-offer-rank="bad"] {
+  color: orangered;
+}
+[data-offer-rank="poor"] {
+  color: red;
+}
+[data-offer-rank="awful"] {
+  color: darkred;
+}
