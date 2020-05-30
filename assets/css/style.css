@@ -240,8 +240,12 @@ nav {
     rgb(255, 212, 102, 0.3)
   );
   font-weight: bold;
+}
+
+#stats-table-values {
   display: none;
 }
+
 #stats-btn {
   margin-bottom: 0.5rem;
   background-color: rgba(150, 146, 146, 0.835);
