@@ -1,53 +1,27 @@
-var moneyList = [
-  0.01,
-  1,
-  5,
-  10,
-  25,
-  50,
-  75,
-  100,
-  200,
-  300,
-  400,
-  500,
-  750,
-  1000,
-  5000,
-  10000,
-  25000,
-  50000,
-  75000,
-  100000,
-  200000,
-  300000,
-  400000,
-  500000,
-  750000,
-  1000000,
-];
+var moneyList = [0.01,1,5,10,25,50,75,100,200,300,400,500,750,1000,5000,10000,25000,50000,75000,100000,200000,300000,400000,500000,750000,1000000];
+
 var numCasesOpenedPerRound = {
-  1: 6,
-  2: 5,
-  3: 4,
-  4: 3,
-  5: 2,
-  6: 1,
-  7: 1,
-  8: 1,
-  9: 1,
+    1: 6,
+    2: 5,
+    3: 4,
+    4: 3,
+    5: 2,
+    6: 1,
+    7: 1,
+    8: 1,
+    9: 1,
 };
 
 var bankersOfferMeanSD = {
-  1: [22.485, 8.385],
-  2: [33.685, 11.232],
-  3: [44.87, 8.74],
-  4: [52.46, 13.5],
-  5: [63.745, 14.002],
-  6: [72.75, 12.719],
-  7: [74.98, 17.622],
-  8: [80.92, 17.26],
-  9: [78.88, 15.321],
+    1: [22.485, 8.385],
+    2: [33.685, 11.232],
+    3: [44.87, 8.74],
+    4: [52.46, 13.5],
+    5: [63.745, 14.002],
+    6: [72.75, 12.719],
+    7: [74.98, 17.622],
+    8: [80.92, 17.26],
+    9: [78.88, 15.321],
 };
 
 var moneyValuesRemaining;
@@ -85,23 +59,15 @@ function reset() {
 /* Game setup. Creates the Money Table, Assigns the Case Values, Resets Global Variables and Creates the DEAL and NO DEAL buttons */
 
 function createMoneyTable() {
-  for (var i = 0; i < 13; i++) {
-    var rowEl = $("<div>").addClass("row");
+    for (var i = 0; i < 13; i++) {
+        var rowEl = $("<div>").addClass("row");
 
-    var divOne = $("<div>")
-      .text("$" + formatNumber(moneyList[i]))
-      .addClass("col")
-      .attr({ "data-inplay": "yes", value: moneyList[i] })
-      .css("border", "black 5px");
-    var divTwo = $("<div>")
-      .text("$" + formatNumber(moneyList[i + 13]))
-      .addClass("col")
-      .attr({ "data-inplay": "yes", value: moneyList[i + 13] })
-      .css("border", "black 5px");
-
-    rowEl.append(divOne, divTwo);
-    $("#money-table").append(rowEl);
-  }
+        var divOne = $("<div>").text("$" + formatNumber(moneyList[i])).addClass("col").attr({ "data-inplay": "yes", "value": moneyList[i] });
+        var divTwo = $("<div>").text("$" + formatNumber(moneyList[i + 13])).addClass("col").attr({ "data-inplay": "yes", "value": moneyList[i + 13] });
+    
+        rowEl.append(divOne, divTwo);
+        $("#money-table").append(rowEl);
+    }
 }
 
 function assignVariables() {
@@ -122,15 +88,15 @@ function assignVariables() {
 }
 
 function assignCaseAmounts() {
-  var values = moneyList.slice();
-  for (var i = 26; i >= 1; i--) {
-    var randNum = Math.floor(Math.random() * values.length);
-    var caseValue = values[randNum];
+    var values = moneyList.slice();
+    for (var i = 26; i >= 1; i--) {
+        var randNum = Math.floor(Math.random() * values.length);
+        var caseValue = values[randNum];
 
-    $("#case-" + i).val(caseValue);
+        $("#case-" + i).val(caseValue);
 
-    values.splice(values.indexOf(caseValue), 1);
-  }
+        values.splice(values.indexOf(caseValue), 1);
+    }
 }
 
 function createDealButtons() {
@@ -146,22 +112,22 @@ function createDealButtons() {
 /* Code for the Actual Game */
 
 function selectPlayersCase() {
-  displayInstructions();
-  $(".case").click(function () {
-    if (!hasPlayerSelectedCase) {
-      myCase = $(this);
-      displayMyCase(myCase);
-      displayInfo();
-      hasPlayerSelectedCase = true;
-      gameState = 1;
-      newRound();
-    }
-  });
+    displayInstructions();
+    $(".case").click(function () {
+        if (!hasPlayerSelectedCase) {
+        myCase = $(this);
+        displayMyCase(myCase);
+        displayInfo();
+        hasPlayerSelectedCase = true;
+        gameState = 1;
+        newRound();
+        }
+    });
 }
 
 function displayMyCase(el) {
-  $("#your-case").addClass("chosen-case").text($(el).text()).val($(el).val());
-  $(el).removeClass("not-clicked").addClass("players-case");
+    $("#your-case").addClass("chosen-case").text($(el).text()).val($(el).val());
+    $(el).removeClass("not-clicked").addClass("players-case");
 }
 
 function openCase(thisRound) {
@@ -193,71 +159,73 @@ function removeSelectedCase(el) {
 }
 
 function bankersOffer() {
-  gameState = 2;
+    gameState = 2;
 
-  var mean = bankersOfferMeanSD[round][0];
-  var sd = bankersOfferMeanSD[round][1];
+    var mean = bankersOfferMeanSD[round][0];
+    var sd = bankersOfferMeanSD[round][1];
 
-  var pvalue = Math.random() * 0.95 - 0.475;
-  var z = percentile_z(pvalue);
-  var ex = calcExpectedValue();
-  var pi = z * sd + mean;
+    var pvalue = Math.random() * 0.95 - 0.475;
+    var z = percentile_z(pvalue);
+    var ex = calcExpectedValue();
+    var pi = z * sd + mean;
 
-  offer = Math.round(0.01 * pi * ex);
+    offer = Math.round(0.01 * pi * ex);
 
   offerDeal(round);
 }
 
 function offerDeal(thisRound) {
-  displayOffer(offer);
-  displayInstructions();
-  displayInfo();
 
-  $("#deal-btn").attr("data-offer", "yes");
-  $("#no-deal-btn").attr("data-offer", "yes");
+    displayOffer(offer);
+    displayInstructions();
+    displayInfo();
 
-  $("#deal-btn").click(function () {
-    if (thisRound === round) {
-      $("#deal-btn").attr("data-offer", "no");
-      $("#no-deal-btn").attr("data-offer", "no");
+    $("#deal-btn").attr("data-offer", "yes");
+    $("#no-deal-btn").attr("data-offer", "yes");
 
-      removeOffer();
-      gameState = 11;
-      winnings = offer;
-      localStorage.setItem("winnings", winnings);
-      $(".save-winnings").css("display", "block");
-      displayInfo();
-    }
-  });
+    $("#deal-btn").click(function () {
+        if (thisRound === round) {
+            $("#deal-btn").attr("data-offer", "no");
+            $("#no-deal-btn").attr("data-offer", "no");
 
-  $("#no-deal-btn").click(function () {
-    if (thisRound === round) {
-      $("#deal-btn").attr("data-offer", "no");
-      $("#no-deal-btn").attr("data-offer", "no");
+            removeOffer();
+            gameState = 11;
+            winnings = offer;
+            localStorage.setItem("winnings", winnings);
+            $(".save-winnings").css("display", "block");
+            displayInfo();
+        }
+    });
 
-      removeOffer();
-      removeInfo();
-      newRound();
-    }
-  });
+    $("#no-deal-btn").click(function () {
+        if (thisRound === round) {
+            $("#deal-btn").attr("data-offer", "no");
+            $("#no-deal-btn").attr("data-offer", "no");
 
-  $("#counter-btn").click(function () {
-    if (thisRound === round) {
-    }
-  });
+            removeOffer();
+            removeInfo();
+            newRound();
+        }
+    });
+
+    $("#counter-btn").click(function() {
+        if (thisRound === round) {
+            
+        }
+    });
 }
 
 function selectFinalCase(thisRound) {
-  displayInstructions();
-  $(".case").click(function () {
-    if (thisRound === round && !hasSelectedFinalCase) {
-      hasSelectedFinalCase = true;
-      selectedCase = $(this);
-      winnings = parseFloat(selectedCase.val());
-      localStorage.setItem("winnings", winnings);
-      $("#save-winnings").css("display", "block");
-    }
-  });
+    displayInstructions();
+    $(".case").click(function () {
+        if (thisRound === round && !(hasSelectedFinalCase)) {
+            hasSelectedFinalCase = true;
+            selectedCase = $(this);
+            winnings = parseFloat(selectedCase.val());
+            localStorage.setItem("winnings", winnings);
+            $(".save-winnings").css("display", "block");
+        }
+    });
 }
 
 function newRound() {
@@ -274,29 +242,29 @@ function newRound() {
 
 /* Event Listener for the More Stats Button */
 $("#stats-btn").click(function () {
-  if ($("#stats-table-values").css("display") === "none")
-    $("#stats-table-values").css("display", "block");
-  else $("#stats-table-values").css("display", "none");
+    if ($("#stats-table-values").css("display") === "none")
+        $("#stats-table-values").css("display", "block");
+    else $("#stats-table-values").css("display", "none");
 });
 
 /*Updates the Stats Table */
 function updateStatsTable() {
-  var ex = calcExpectedValue();
-  var ex2 = calcEX2();
-  $("#expected-value").text("Expected Value: $" + formatNumber(Math.round(ex)));
-  $("#standard-deviation").text(
-    "Standard Deviation: $" +
-      formatNumber(Math.round(calcStandardDeviation(ex, ex2)))
-  );
-  $("#median").text(
-    "Median: $" + formatNumber(calcMedian(moneyValuesRemaining))
-  );
-  $("#first-quartile").text(
-    "First Quartile: $" + formatNumber(calc25thPercentile(moneyValuesRemaining))
-  );
-  $("#third-quartile").text(
-    "Third Quartile: $" + formatNumber(calc75thPercentile(moneyValuesRemaining))
-  );
+    var ex = calcExpectedValue();
+    var ex2 = calcEX2();
+    $("#expected-value").text("Expected Value: $" + formatNumber(Math.round(ex)));
+    $("#standard-deviation").text(
+        "Standard Deviation: $" +
+        formatNumber(Math.round(calcStandardDeviation(ex, ex2)))
+    );
+    $("#median").text(
+        "Median: $" + formatNumber(calcMedian(moneyValuesRemaining))
+    );
+    $("#first-quartile").text(
+        "First Quartile: $" + formatNumber(calc25thPercentile(moneyValuesRemaining))
+    );
+    $("#third-quartile").text(
+        "Third Quartile: $" + formatNumber(calc75thPercentile(moneyValuesRemaining))
+    );
 }
 
 /* Formatting Functions and Displaying Instructions and Info for the User */
@@ -314,119 +282,104 @@ function displayOffer(offer) {
 }
 
 function removeOffer() {
-  $("#bankers-offer").remove();
-  $(".stats").empty();
+    $("#bankers-offer").remove();
+    $(".stats").empty().text("Percent of Expected");
 }
 
 function displayInstructions() {
-  var instructEl = $("#instructionsDisplayed");
-  switch (gameState) {
-    case 0:
-      instructEl.text("Select your case");
-      break;
-    case 1:
-      if (numCasesOpenedPerRound[round] - casesOpenedThisRound > 1)
-        instructEl.text(
-          "Open " +
-            (numCasesOpenedPerRound[round] - casesOpenedThisRound) +
-            " cases."
-        );
-      else
-        instructEl.text(
-          "Open " +
-            (numCasesOpenedPerRound[round] - casesOpenedThisRound) +
-            " case."
-        );
-      break;
-    case 2:
-      instructEl.text("DEAL or NO DEAL?");
-      break;
-    case 10:
-      instructEl.text("Select your Final Case to take Home");
-      break;
-  }
+    var instructEl = $("#instructionsDisplayed");
+    switch (gameState) {
+        case 0:
+        instructEl.text("Select your case");
+        break;
+        case 1:
+        if (numCasesOpenedPerRound[round] - casesOpenedThisRound > 1)
+            instructEl.text(
+            "Open " +
+                (numCasesOpenedPerRound[round] - casesOpenedThisRound) +
+                " cases."
+            );
+        else
+            instructEl.text(
+            "Open " +
+                (numCasesOpenedPerRound[round] - casesOpenedThisRound) +
+                " case."
+            );
+        break;
+        case 2:
+        instructEl.text("DEAL or NO DEAL?");
+        break;
+        case 10:
+        instructEl.text("Select your Final Case to take Home");
+        break;
+    }
 }
 
 function displayInfo() {
-  var infoEl = $("#infoDisplayed");
-  switch (gameState) {
-    case 0:
-      infoEl.text("You chose Case " + myCase.text());
-      break;
-    case 1:
-      infoEl.html(
-        "You opened Case " +
-          selectedCase.text() +
-          "<br>Value: $" +
-          formatNumber(selectedCase.val())
-      );
-      break;
-    case 2:
-      infoEl.text("Banker's Offer: $" + formatNumber(offer));
-      break;
-    case 10:
-      infoEl.html(
-        "Your Final Case is Case " +
-          selectedCase.text() +
-          "<br>Winnings: $" +
-          formatNumber(selectedCase.val())
-      );
-      break;
-    case 11:
-      infoEl.html(
-        "You made a DEAL with the Banker.<br>Winnings: $" +
-          formatNumber(winnings)
-      );
-  }
+
+    var infoEl = $("#infoDisplayed");
+    switch (gameState) {
+        case 0:
+            infoEl.text("You chose Case " + myCase.text());
+            break;
+        case 1:
+            infoEl.html("You opened Case " + selectedCase.text() + "<br>Value: $" + formatNumber(selectedCase.val()));
+            break;
+        case 10:
+            infoEl.html("Your Final Case is Case " + selectedCase.text() + "<br>Winnings: $" + formatNumber(selectedCase.val()));
+            break;
+        case 11:
+            infoEl.html("You made a DEAL with the Banker.<br>Winnings: $" + formatNumber(winnings));
+    }
 }
 
 function removeInfo() {
-  var infoEl = $("#infoDisplayed");
-  infoEl.html("");
+    var infoEl = $("#infoDisplayed");
+    infoEl.html("");
 }
 
 function strikeOutTable(amount) {
-  $("div [value='" + amount + "']").attr("data-inplay", "no");
+    $("div [value='" + amount + "']").attr("data-inplay", "no");
 }
 
 function formatNumber(num) {
-  if (num > 1) return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-  return num;
+    if (num > 1) return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return num;
 }
 
 /* Calculations used in various functions */
 
 function calcExpectedValue() {
-  return remainingMoney / (totalCases - totalCasesOpened);
+    return remainingMoney / (totalCases - totalCasesOpened);
 }
 
 function calcEX2() {
-  var x2 = 0;
-  for (var i = 0; i < moneyValuesRemaining.length; i++)
-    x2 += Math.pow(moneyValuesRemaining[i], 2);
-  var ex2 = x2 / moneyValuesRemaining.length;
-  return ex2;
+    var x2 = 0;
+    for (var i = 0; i < moneyValuesRemaining.length; i++)
+        x2 += Math.pow(moneyValuesRemaining[i], 2);
+    var ex2 = x2 / moneyValuesRemaining.length;
+    return ex2;
 }
 
 function calcStandardDeviation(ex, ex2) {
-  return Math.sqrt(ex2 - Math.pow(ex, 2));
+    return Math.sqrt(ex2 - Math.pow(ex, 2));
 }
 
 function calcMedian(list) {
-  var listLength = list.length;
-  if (listLength % 2 == 1) return list[Math.floor(listLength / 2)];
-  else return (list[listLength / 2] + list[listLength / 2 - 1]) / 2;
+    var listLength = list.length;
+    if (listLength % 2 == 1) return list[Math.floor(listLength / 2)];
+    else return (list[listLength / 2] + list[listLength / 2 - 1]) / 2;
 }
 
 function calc25thPercentile(list) {
-  var listLength = list.length;
-  var index = Math.floor((listLength + 1) / 4) - 1;
-  var weight = ((listLength + 1) % 4) / 4;
-  return list[index] * (1 - weight) + list[index + 1] * weight;
+    var listLength = list.length;
+    var index = Math.floor((listLength + 1) / 4) - 1;
+    var weight = ((listLength + 1) % 4) / 4;
+    return list[index] * (1 - weight) + list[index + 1] * weight;
 }
 
 function calc75thPercentile(list) {
-  var listLength = list.length;
+    var listLength = list.length;
   var index = Math.floor(((listLength + 1) * 3) / 4) - 1;
   var weight = (((listLength + 1) * 3) % 4) / 4;
   return list[index] * (1 - weight) + list[index + 1] * weight;
@@ -448,9 +401,9 @@ function evaluateOffer(ratio) {
 }
 
 function calcTotalMoneyAmount() {
-  var amount = 0;
-  for (var i = 0; i < moneyList.length; i++) amount += moneyList[i];
-  return amount;
+    var amount = 0;
+    for (var i = 0; i < moneyList.length; i++) amount += moneyList[i];
+    return amount;
 }
 
 function percentile_z(p) {
