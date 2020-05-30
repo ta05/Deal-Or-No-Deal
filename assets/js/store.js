@@ -53,10 +53,15 @@ function onSignOut() {
 
 //Function that stores winnings into our firebase database
 function writeData() {
-  firebase
-    .database()
-    .ref("User")
-    .push({
-      score: localStorage.getItem("winnings"),
-    });
+  if (!savedWinnings && $("#name").val().trim() !== "") {
+    savedWinnings = true;
+    firebase
+      .database()
+      .ref("User")
+      .push({
+        name: $("#name").val(),
+        score: localStorage.getItem("winnings"),
+      });
+  }
 }
+var savedWinnings = false;
