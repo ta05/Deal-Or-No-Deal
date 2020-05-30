@@ -58,6 +58,7 @@ h2 {
   background-size: cover;
   -o-background-size: cover;
   background-position: center;
+  height: 28rem;
 }
 
 .unchosen-case {
@@ -66,6 +67,7 @@ h2 {
 
 .chosen-case {
   display: block;
+  margin: 0.5rem 4rem;
 }
 
 .players-case {
@@ -179,17 +181,25 @@ nav {
   background-size: cover;
   -o-background-size: cover;
   background-position: center;
-
 }
-
+#instructionsDisplayed {
+  color: whitesmoke;
+  font-weight: bold;
+  font-size: 1.5rem;
+}
 /*Style for Money Amount Table*/
 #moneyAmountTable {
   width: 200px;
+  background: linear-gradient(
+    rgba(255, 212, 102, 0.9),
+    rgb(255, 212, 102, 0.3)
+  );
+  font-weight: bold;
 }
 
-
-[data-inplay="no"]{
+[data-inplay="no"] {
   text-decoration: line-through;
+  color: red;
 }
 
 /*Style for Deal, No Deal Buttons*/
@@ -218,13 +228,38 @@ nav {
 }
 
 /*Style for banker info/your case column*/
-.bankerInfo {
-  margin-bottom: 4rem;
-=======
-
-/*Style for Stats Table */
+.bankerInfo,
+.stats,
+.yourCase,
 #stats-table-values {
-  display: none;
-  background-color: white;
-
+  background: linear-gradient(
+    rgba(255, 212, 102, 0.9),
+    rgb(255, 212, 102, 0.3)
+  );
+  font-weight: bold;
+}
+#stats-btn {
+  margin-bottom: 0.5rem;
+  background-color: rgba(150, 146, 146, 0.835);
+}
+#deal-btn,
+#no-deal-btn,
+#saveWinnings {
+  background-color: rgba(150, 146, 146, 0.835);
+  margin-left: 0.5rem;
+  margin: 0.5rem;
+}
+#deal-btn:hover,
+#no-deal-btn:hover,
+#stats-btn:hover,
+#saveWinnings:hover {
+  background-color: rgb(151, 132, 25);
+}
+#saveWinnings {
+  margin: 0 13rem;
+  width: 10rem;
+  font-size: 16px;
+}
+#stats-table-values {
+  padding: 0 1rem;
 }
