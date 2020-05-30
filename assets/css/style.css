@@ -243,6 +243,7 @@ nav {
 }
 
 #stats-table-values {
+  padding: 0 1rem;
   display: none;
 }
 
@@ -279,9 +280,6 @@ nav {
 #name {
   width: auto;
   margin: 0.5rem 12rem;
-}
-#stats-table-values {
-  padding: 0 1rem;
 }
 
 @media all and (max-width: 800px) and (min-width: 300px) {
