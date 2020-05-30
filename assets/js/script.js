@@ -220,10 +220,12 @@ function selectFinalCase(thisRound) {
     $(".case").click(function () {
         if (thisRound === round && !(hasSelectedFinalCase)) {
             hasSelectedFinalCase = true;
+            gameState = 11;
             selectedCase = $(this);
             winnings = parseFloat(selectedCase.val());
             localStorage.setItem("winnings", winnings);
             $(".save-winnings").css("display", "block");
+            displayInfo();
         }
     });
 }
