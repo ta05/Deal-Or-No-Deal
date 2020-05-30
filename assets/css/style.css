@@ -280,6 +280,7 @@ nav {
 #name {
   width: auto;
   margin: 0.5rem 12rem;
+  color: white;
 }
 
 @media all and (max-width: 800px) and (min-width: 300px) {

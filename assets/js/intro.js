@@ -18,9 +18,7 @@ function ajaxCall(searchMusic) {
   };
 
   $.ajax(settings).done(function (response) {
-    console.log(settings.url);
     playlist = [];
-    console.log(response);
     for (i = 0; i < response.data.length; i++) {
       playlist.push(response.data[i].preview);
     }
@@ -36,7 +34,6 @@ function playMusic(i, playlist) {
   sound = new Howl({
     src: [playlist[i]],
     onend: function () {
-      console.log("ended");
       if (i + 1 == playlist.length) {
         playMusic(0, playlist);
       } else {
