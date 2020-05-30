@@ -171,7 +171,7 @@ nav {
   background-position: center;
   padding: 0 1rem;
 }
-/*Cards(cases) Style*/
+/*Cards Element Style & Displayed Instructions*/
 
 #gameCasesEl {
   margin: 0 0.5rem;
@@ -186,6 +186,8 @@ nav {
   color: whitesmoke;
   font-weight: bold;
   font-size: 1.5rem;
+  border-style: ridge;
+  margin-bottom: auto;
 }
 /*Style for Money Amount Table*/
 #moneyAmountTable {
@@ -222,6 +224,7 @@ nav {
 }
 .signin-btn:hover,
 .guest-btn:hover {
+  cursor: pointer;
   font-weight: bolder;
   color: black;
   background-color: rgba(172, 172, 172, 0.842);
@@ -255,11 +258,79 @@ nav {
 #saveWinnings:hover {
   background-color: rgb(151, 132, 25);
 }
+/*Style for Display Instructions & save winnings btn*/
+#infoDisplayed {
+  color: white;
+  font-weight: bold;
+  border-style: ridge;
+  border-color: darkred;
+  margin-top: 1.5rem;
+}
 #saveWinnings {
-  margin: 0 13rem;
+  margin: 0rem 13rem;
   width: 10rem;
   font-size: 16px;
 }
+#name {
+  width: auto;
+  margin: 0.5rem 12rem;
+}
 #stats-table-values {
   padding: 0 1rem;
+}
+@media all and (max-width: 800px) and (min-width: 300px) {
+  #gameTitle {
+    margin-top: 6rem;
+    font-size: 25px;
+    width: fit-content;
+  }
+  .card {
+    margin: auto;
+    width: 35px;
+    height: 35px;
+  }
+  #moneyAmountTable {
+    width: 200px;
+    margin-top: 10rem;
+  }
+  #money-table {
+    font-size: small;
+    text-align: center;
+  }
+  nav {
+    height: 150px;
+  }
+  .pause-btn,
+  .resume-btn,
+  .stop-btn {
+    width: 30px;
+    margin: 0 0.2rem;
+  }
+  #add-music {
+    margin-top: 4rem;
+  }
+  .signout-btn-game,
+  #introBtn {
+    width: 70px;
+    margin: 1rem;
+    font-size: small;
+  }
+  #icon {
+    font-size: 15px;
+  }
+  .introTxt {
+    font-size: 10px;
+  }
+  #music-input {
+    height: 1rem;
+    margin: 1rem 0.4rem;
+  }
+  #name {
+    margin: auto;
+  }
+  #saveWinnings {
+    margin: 1rem 5rem;
+    height: 2rem;
+    width: 10rem;
+  }
 }
