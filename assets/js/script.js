@@ -79,38 +79,39 @@ function initialize() {
     selectPlayersCase();
 }
 
+function reset() {
+    window.location = window.location.href;
+}
+
 /* Game setup. Creates the Money Table, Assigns the Case Values, Resets Global Variables and Creates the DEAL and NO DEAL buttons */
 
 function createMoneyTable() {
-  for (var i = 0; i < 13; i++) {
-    var rowEl = $("<div>").addClass("row");
+    for (var i = 0; i < 13; i++) {
+        var rowEl = $("<div>").addClass("row");
 
-    var divOne = $("<div>")
-      .text("$" + formatNumber(moneyList[i]))
-      .addClass("col")
-      .attr({ "data-inplay": "yes", value: moneyList[i] });
-    var divTwo = $("<div>")
-      .text("$" + formatNumber(moneyList[i + 13]))
-      .addClass("col")
-      .attr({ "data-inplay": "yes", value: moneyList[i + 13] });
-
-    rowEl.append(divOne, divTwo);
-    $("#money-table").append(rowEl);
-  }
+        var divOne = $("<div>").text("$" + formatNumber(moneyList[i])).addClass("col").attr({ "data-inplay": "yes", "value": moneyList[i] }).css("border", "black 5px");
+        var divTwo = $("<div>").text("$" + formatNumber(moneyList[i + 13])).addClass("col").attr({ "data-inplay": "yes", "value": moneyList[i + 13] }).css("border", "black 5px");
+    
+        rowEl.append(divOne, divTwo);
+        $("#money-table").append(rowEl);
+    }
 }
 
 function assignVariables() {
-  moneyValuesRemaining = moneyList.slice();
-  totalCasesOpened = 0;
-  totalCases = moneyList.length;
-  remainingMoney = calcTotalMoneyAmount();
-  round = 0;
-  casesOpenedThisRound = 0;
-  hasPlayerSelectedCase = false;
-  hasSelectedFinalCase = false;
-  gameState = 0;
-  myCase = undefined;
-  selectedCase = undefined;
+    moneyValuesRemaining = moneyList.slice();
+    totalCasesOpened = 0;
+    totalCases = moneyList.length;
+    remainingMoney = calcTotalMoneyAmount();
+    round = 0;
+    casesOpenedThisRound = 0;
+    hasPlayerSelectedCase = false;
+    hasSelectedFinalCase = false;
+    offer = undefined;
+    counterOffer = undefined;
+    winnings = undefined;
+    gameState = 0;
+    myCase = undefined;
+    selectedCase = undefined;
 }
 
 function assignCaseAmounts() {
@@ -195,8 +196,6 @@ function bankersOffer() {
     offerDeal(round);
 }
 
-function counterOffer(counter) {}
-
 function offerDeal(thisRound) {
     displayOffer(offer);
     displayInstructions();
@@ -210,6 +209,7 @@ function offerDeal(thisRound) {
             $("#deal-btn").attr("data-offer", "no");
             $("#no-deal-btn").attr("data-offer", "no");
 
+            removeOffer();
             gameState = 11;
             winnings = offer;
             localStorage.setItem("winnings", winnings);
@@ -223,6 +223,7 @@ function offerDeal(thisRound) {
             $("#deal-btn").attr("data-offer", "no");
             $("#no-deal-btn").attr("data-offer", "no");
 
+            removeOffer();
             removeInfo();
             newRound();
         }
@@ -291,10 +292,16 @@ function updateStatsTable() {
 /* Formatting Functions and Displaying Instructions and Info for the User */
 
 function displayOffer(offer) {
-    $("#bankerInfo").html("Banker's Offer<br>$" + formatNumber(offer));
+    var offerEl = $("<div>").attr("id", "bankers-offer").text("$" + formatNumber(offer));
+    $("#deal-btn").before(offerEl);
     var ratio = offer/calcExpectedValue()
     percentDiv = $("<div>").attr("data-offer-rank", evaluateOffer(ratio)).text(Math.round(ratio*100)+"%");
     $(".stats").append(percentDiv);
+}
+
+function removeOffer() {
+    $("#bankers-offer").remove();
+    $(".stats").empty();
 }
 
 function displayInstructions() {
@@ -428,32 +435,24 @@ function calcTotalMoneyAmount() {
 }
 
 function percentile_z(p) {
-  var a0 = 2.5066282,
-    a1 = -18.6150006,
-    a2 = 41.3911977,
-    a3 = -25.4410605,
-    b1 = -8.4735109,
-    b2 = 23.0833674,
-    b3 = -21.062241,
-    b4 = 3.1308291,
-    c0 = -2.7871893,
-    c1 = -2.2979648,
-    c2 = 4.8501413,
-    c3 = 2.3212128,
-    d1 = 3.5438892,
-    d2 = 1.6370678,
-    r,
-    z;
+    var a0= 2.5066282,  a1=-18.6150006,  a2= 41.3911977,   a3=-25.4410605,
+        b1=-8.4735109,  b2= 23.0833674,  b3=-21.0622410,   b4=  3.1308291,
+        c0=-2.7871893,  c1= -2.2979648,  c2=  4.8501413,   c3=  2.3212128,
+        d1= 3.5438892,  d2=  1.6370678, r, z;
 
-  if (p > 0.42) {
-    r = Math.sqrt(-Math.log(0.5 - p));
-    z = (((c3 * r + c2) * r + c1) * r + c0) / ((d2 * r + d1) * r + 1);
-  } else {
-    r = p * p;
-    z =
-      (p * (((a3 * r + a2) * r + a1) * r + a0)) /
-      ((((b4 * r + b3) * r + b2) * r + b1) * r + 1);
-  }
-  return z;
+    if (p>0.42) {
+        r=Math.sqrt(-Math.log(0.5-p));
+        z=(((c3*r+c2)*r+c1)*r+c0)/((d2*r+d1)*r+1);
+    } else {
+        r=p*p;
+        z=p*(((a3*r+a2)*r+a1)*r+a0)/((((b4*r+b3)*r+b2)*r+b1)*r+1);
+    }
+    return z;
 }
+
+/* Reset */
+
+$("#reset").click(function () {
+    reset();
+});
 
