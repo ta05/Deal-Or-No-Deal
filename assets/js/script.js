@@ -52,14 +52,18 @@ function initialize() {
     selectPlayersCase();
 }
 
+function reset() {
+    window.location = window.location.href;
+}
+
 /* Game setup. Creates the Money Table, Assigns the Case Values, Resets Global Variables and Creates the DEAL and NO DEAL buttons */
 
 function createMoneyTable() {
     for (var i = 0; i < 13; i++) {
         var rowEl = $("<div>").addClass("row");
 
-        var divOne = $("<div>").text("$" + formatNumber(moneyList[i])).addClass("col").attr({ "data-inplay": "yes", "value": moneyList[i] });
-        var divTwo = $("<div>").text("$" + formatNumber(moneyList[i + 13])).addClass("col").attr({ "data-inplay": "yes", "value": moneyList[i + 13] });
+        var divOne = $("<div>").text("$" + formatNumber(moneyList[i])).addClass("col").attr({ "data-inplay": "yes", "value": moneyList[i] }).css("border", "black 5px");
+        var divTwo = $("<div>").text("$" + formatNumber(moneyList[i + 13])).addClass("col").attr({ "data-inplay": "yes", "value": moneyList[i + 13] }).css("border", "black 5px");
     
         rowEl.append(divOne, divTwo);
         $("#money-table").append(rowEl);
@@ -75,6 +79,9 @@ function assignVariables() {
     casesOpenedThisRound = 0;
     hasPlayerSelectedCase = false;
     hasSelectedFinalCase = false;
+    offer = undefined;
+    counterOffer = undefined;
+    winnings = undefined;
     gameState = 0;
     myCase = undefined;
     selectedCase = undefined;
@@ -161,10 +168,6 @@ function bankersOffer() {
     offerDeal(round);
 }
 
-function counterOffer(counter) {
-    
-}
-
 function offerDeal(thisRound) {
     displayOffer(offer);
     displayInstructions();
@@ -178,6 +181,7 @@ function offerDeal(thisRound) {
             $("#deal-btn").attr("data-offer", "no");
             $("#no-deal-btn").attr("data-offer", "no");
 
+            removeOffer();
             gameState = 11;
             winnings = offer;
             localStorage.setItem("winnings", winnings);
@@ -191,6 +195,7 @@ function offerDeal(thisRound) {
             $("#deal-btn").attr("data-offer", "no");
             $("#no-deal-btn").attr("data-offer", "no");
 
+            removeOffer();
             removeInfo();
             newRound();
         }
@@ -251,10 +256,16 @@ function updateStatsTable() {
 /* Formatting Functions and Displaying Instructions and Info for the User */
 
 function displayOffer(offer) {
-    $("#bankerInfo").html("Banker's Offer<br>$" + formatNumber(offer));
+    var offerEl = $("<div>").attr("id", "bankers-offer").text("$" + formatNumber(offer));
+    $("#deal-btn").before(offerEl);
     var ratio = offer/calcExpectedValue()
     percentDiv = $("<div>").attr("data-offer-rank", evaluateOffer(ratio)).text(Math.round(ratio*100)+"%");
     $(".stats").append(percentDiv);
+}
+
+function removeOffer() {
+    $("#bankers-offer").remove();
+    $(".stats").empty();
 }
 
 function displayInstructions() {
@@ -398,3 +409,9 @@ function percentile_z(p) {
     }
     return z;
 }
+
+/* Reset */
+
+$("#reset").click(function () {
+    reset();
+});
