@@ -11,6 +11,7 @@ Carina Reyes
 
 
 Tolu Alimi
+
 [<img alt="Tolu | LinkedIn" width="22px" src="https://cdn.jsdelivr.net/npm/simple-icons@v3/icons/linkedin.svg" />][linkedin-ta]
 [<img alt="Tolu | Github" width="22px" src="https://cdn.jsdelivr.net/npm/simple-icons@v3/icons/github.svg" />][github-ta]
 
@@ -30,7 +31,7 @@ A web application that lets you take part of a famous tv game show that helps th
 
 ## Credits
 
-Google Fu, Google Firebase OAuth Documentation, Howler Js Documentation, RapidApi Documentation, StackOverflow, FontAwesome, Article: "Statistical Models for the Bankers Offer in Deal or No Deal" by David Ritcey & Pritam Ranjan, W3 Schools, MaterializeCSS,Youtube.
+Google Fu, Google Firebase OAuth Documentation, Howler Js Documentation, RapidApi Documentation, StackOverflow, FontAwesome, Article: "Statistical Models for the Bankers Offer in Deal or No Deal" by David Ritcey & Pritam Ranjan, W3 Schools, MaterializeCSS, Youtube.
 
 [github-cr]: https://github.com/Creyes17e
 [linkedin-cr]: https://www.linkedin.com/in/carina-reyes-21b6701a2/
