@@ -5,13 +5,14 @@ https://ta05.github.io/Deal-Or-No-Deal/intro.html
 ## Developers
 
 Carina Reyes
-[<img style="vertical-align: middle" alt="Carina | LinkedIn" width="22px" src="https://cdn.jsdelivr.net/npm/simple-icons@v3/icons/linkedin.svg" />][linkedin-cr]
-[<img style="vertical-align: middle" alt="Carina | Github" width="22px" src="https://cdn.jsdelivr.net/npm/simple-icons@v3/icons/github.svg" />][github-cr]
+
+[<img alt="Carina | LinkedIn" width="22px" src="https://cdn.jsdelivr.net/npm/simple-icons@v3/icons/linkedin.svg" />][linkedin-cr]
+[<img alt="Carina | Github" width="22px" src="https://cdn.jsdelivr.net/npm/simple-icons@v3/icons/github.svg" />][github-cr]
 
 
 Tolu Alimi
-[<img style="vertical-align: middle" alt="Tolu | LinkedIn" width="22px" src="https://cdn.jsdelivr.net/npm/simple-icons@v3/icons/linkedin.svg" />][linkedin-ta]
-[<img style="vertical-align: middle" alt="Tolu | LinkedIn" width="22px" src="https://cdn.jsdelivr.net/npm/simple-icons@v3/icons/github.svg" />][github-ta]
+[<img alt="Tolu | LinkedIn" width="22px" src="https://cdn.jsdelivr.net/npm/simple-icons@v3/icons/linkedin.svg" />][linkedin-ta]
+[<img alt="Tolu | Github" width="22px" src="https://cdn.jsdelivr.net/npm/simple-icons@v3/icons/github.svg" />][github-ta]
 
 ## Description
 
@@ -23,9 +24,9 @@ A web application that lets you take part of a famous tv game show that helps th
 
 ## APIs
 
--Google Oauth Firebase
--RapidApi(Deezer)
--Howler Js
+- Google Oauth Firebase
+- RapidApi(Deezer)
+- Howler Js
 
 ## Credits
 
