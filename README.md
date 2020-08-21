@@ -4,11 +4,10 @@ https://ta05.github.io/Deal-Or-No-Deal/intro.html
 
 ## Developers
 
-<div>
-<p align="left" style="font-weight: bold; font-size: large">Carina Reyes</p>
+**Carina Reyes**
+
 [<img align="left" alt="Carina | LinkedIn" width="22px" src="https://cdn.jsdelivr.net/npm/simple-icons@v3/icons/linkedin.svg" />][linkedin-cr]
 [<img align="left" alt="Carina | Github" width="22px" src="https://cdn.jsdelivr.net/npm/simple-icons@v3/icons/github.svg" />][github-cr]
-</div>
 
 <br /><br />
 
