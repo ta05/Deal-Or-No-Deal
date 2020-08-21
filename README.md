@@ -4,9 +4,7 @@ https://ta05.github.io/Deal-Or-No-Deal/intro.html
 
 ## Developers
 
-**Carina Reyes**
-
-[<img align="left" alt="Carina | LinkedIn" width="22px" src="https://cdn.jsdelivr.net/npm/simple-icons@v3/icons/linkedin.svg" />][linkedin-cr]
+**Carina Reyes** [<img align="left" alt="Carina | LinkedIn" width="22px" src="https://cdn.jsdelivr.net/npm/simple-icons@v3/icons/linkedin.svg" />][linkedin-cr]
 [<img align="left" alt="Carina | Github" width="22px" src="https://cdn.jsdelivr.net/npm/simple-icons@v3/icons/github.svg" />][github-cr]
 
 <br /><br />
