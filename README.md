@@ -6,15 +6,17 @@ https://ta05.github.io/Deal-Or-No-Deal/intro.html
 
 **Carina Reyes**
 
-[<img style="padding-right:10px;" alt="Carina | LinkedIn" width="22px" src="https://cdn.jsdelivr.net/npm/simple-icons@v3/icons/linkedin.svg" />][linkedin-cr]
-[<img alt="Carina | Github" width="22px" src="https://cdn.jsdelivr.net/npm/simple-icons@v3/icons/github.svg" />][github-cr]
+[<img align="left" alt="Carina | LinkedIn" width="22px" src="https://cdn.jsdelivr.net/npm/simple-icons@v3/icons/linkedin.svg" />][linkedin-cr]
+[<img align="left" alt="Carina | Github" width="22px" src="https://cdn.jsdelivr.net/npm/simple-icons@v3/icons/github.svg" />][github-cr]
 
+</ br>
 
 **Tolu Alimi**
 
-[<img style="padding-right:10px;" alt="Tolu | LinkedIn" width="22px" src="https://cdn.jsdelivr.net/npm/simple-icons@v3/icons/linkedin.svg" />][linkedin-ta]
-[<img alt="Tolu | Github" width="22px" src="https://cdn.jsdelivr.net/npm/simple-icons@v3/icons/github.svg" />][github-ta]
+[<img align="left" alt="Tolu | LinkedIn" width="22px" src="https://cdn.jsdelivr.net/npm/simple-icons@v3/icons/linkedin.svg" />][linkedin-ta]
+[<img align="left" alt="Tolu | Github" width="22px" src="https://cdn.jsdelivr.net/npm/simple-icons@v3/icons/github.svg" />][github-ta]
 
+</ br>
 
 ## Description
 
