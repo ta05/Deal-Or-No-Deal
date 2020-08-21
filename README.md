@@ -6,13 +6,15 @@ https://ta05.github.io/Deal-Or-No-Deal/intro.html
 
 ## Developers
 
-Carina
+Carina Reyes
+
+[<img align="left" alt="codeSTACKr | LinkedIn" width="22px" src="https://cdn.jsdelivr.net/npm/simple-icons@v3/icons/linkedin.svg" />][linkedin]
 
 GitHub:https://github.com/Creyes17e
 
-LinkedIn:https://www.linkedin.com/in/carina-reyes-21b6701a2/
+[linkedin]: https://www.linkedin.com/in/carina-reyes-21b6701a2/
 
-Tolu
+Tolu Alimi
 
 GitHub:https://github.com/ta05
 
