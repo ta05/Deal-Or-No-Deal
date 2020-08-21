@@ -11,12 +11,14 @@ https://ta05.github.io/Deal-Or-No-Deal/intro.html
 
 <br />
 
+
 **Tolu Alimi**
 
 [<img align="left" alt="Tolu | LinkedIn" width="22px" src="https://cdn.jsdelivr.net/npm/simple-icons@v3/icons/linkedin.svg" />][linkedin-ta]
 [<img align="left" alt="Tolu | Github" width="22px" src="https://cdn.jsdelivr.net/npm/simple-icons@v3/icons/github.svg" />][github-ta]
 
 <br />
+
 
 ## Description
 
