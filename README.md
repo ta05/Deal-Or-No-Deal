@@ -7,18 +7,13 @@ https://ta05.github.io/Deal-Or-No-Deal/intro.html
 ## Developers
 
 Carina Reyes
+[<img align="left" alt="codeSTACKr | LinkedIn" width="22px" src="https://cdn.jsdelivr.net/npm/simple-icons@v3/icons/linkedin.svg" />][linkedin-cr]
+[<img align="left" alt="codeSTACKr | LinkedIn" width="22px" src="https://cdn.jsdelivr.net/npm/simple-icons@v3/icons/github.svg" />][github-cr]
 
-[<img align="left" alt="codeSTACKr | LinkedIn" width="22px" src="https://cdn.jsdelivr.net/npm/simple-icons@v3/icons/linkedin.svg" />][linkedin]
-
-GitHub:https://github.com/Creyes17e
-
-[linkedin]: https://www.linkedin.com/in/carina-reyes-21b6701a2/
 
 Tolu Alimi
-
-GitHub:https://github.com/ta05
-
-LinkedIn:https://www.linkedin.com/in/tolu-alimi-1a54161a1/
+[<img align="left" alt="codeSTACKr | LinkedIn" width="22px" src="https://cdn.jsdelivr.net/npm/simple-icons@v3/icons/linkedin.svg" />][linkedin-ta]
+[<img align="left" alt="codeSTACKr | LinkedIn" width="22px" src="https://cdn.jsdelivr.net/npm/simple-icons@v3/icons/github.svg" />][github-ta]
 
 ## Description
 
@@ -37,3 +32,8 @@ A web application that lets you take part of a famous tv game show that helps th
 ## Credits
 
 Google Fu, Google Firebase OAuth Documentation, Howler Js Documentation, RapidApi Documentation, StackOverflow, FontAwesome, Article: "Statistical Models for the Bankers Offer in Deal or No Deal" by David Ritcey & Pritam Ranjan, W3 Schools, MaterializeCSS,Youtube.
+
+[github-cr]: https://github.com/Creyes17e
+[linkedin-cr]: https://www.linkedin.com/in/carina-reyes-21b6701a2/
+[github-ta]: https://github.com/ta05
+[linkedin-ta]: https://www.linkedin.com/in/tolu-alimi-1a54161a1/
