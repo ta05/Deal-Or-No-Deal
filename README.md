@@ -4,13 +4,13 @@ https://ta05.github.io/Deal-Or-No-Deal/intro.html
 
 ## Developers
 
-Carina Reyes
+**Carina Reyes**
 
 [<img alt="Carina | LinkedIn" width="22px" src="https://cdn.jsdelivr.net/npm/simple-icons@v3/icons/linkedin.svg" />][linkedin-cr]
 [<img alt="Carina | Github" width="22px" src="https://cdn.jsdelivr.net/npm/simple-icons@v3/icons/github.svg" />][github-cr]
 
 
-Tolu Alimi
+**Tolu Alimi**
 
 [<img alt="Tolu | LinkedIn" width="22px" src="https://cdn.jsdelivr.net/npm/simple-icons@v3/icons/linkedin.svg" />][linkedin-ta]
 [<img alt="Tolu | Github" width="22px" src="https://cdn.jsdelivr.net/npm/simple-icons@v3/icons/github.svg" />][github-ta]
